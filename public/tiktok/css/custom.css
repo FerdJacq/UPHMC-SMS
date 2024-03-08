@@ -1,0 +1,250 @@
+* {
+    box-sizing: border-box;
+}
+
+.px-2-5 {
+    padding-left: 0.825rem;
+    padding-right: 0.825rem;
+}
+
+.index-container--IjNFo .index-price--msYWD {
+    font-weight: 700;
+}
+
+.text-theme, .index-container--IjNFo .index-price--msYWD {
+    color: var(--main-primary);
+}
+
+.index-container--IjNFo .index-info__sold--Kje96 strong {
+    color: var(--text-primary);
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h5, h6 {
+    font-weight: 600;
+}
+
+.mail-border {
+    height: 3px;
+    width: 100%;
+    background-position-x: -30px;
+    background-size: 116px 3px;
+    background-image: repeating-linear-gradient(315deg,#2dd4ea,#2dd4ea 33px,transparent 0,transparent 41px,#fe3b59 0,#fe3b59 74px,transparent 0,transparent 82px);
+}
+
+
+.ZBzFwL {
+    outline: none;
+    cursor: pointer;
+    border: 0;
+    font-size: .875rem;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color .1s cubic-bezier(.4,0,.6,1);
+    border: 1px solid rgba(0,0,0,.09);
+    border-radius: 2px;
+    background: transparent;
+    color: rgba(0,0,0,.8);
+    width: 26px;
+    height: 26px;
+}
+
+.ZBzFwL:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.shopee-svg-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    position: relative;
+}
+
+.ZBzFwL .shopee-svg-icon {
+    font-size: 10px;
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+}
+
+._4v-cV0 {
+    width: 40px;
+    height: 26px;
+    border-left: 0;
+    border-right: 0;
+    font-size: 13px;
+    font-weight: 400;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: text;
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+
+.ZBzFwL:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.index-original-price--mtoHR {
+    color: var(--text-tertiary);
+    font-size: 13px;
+    line-height: 17px;
+    text-decoration: line-through;
+}
+
+.p-relative {
+    position: relative;
+}
+
+.p-absolute {
+    position: absolute;
+}
+
+.shop-cont img {
+    max-width: 35px;
+}
+
+.product-img {
+    flex: 0 0 30%;
+}
+
+.product-info {
+    flex: 1;
+    max-width: 70%;
+}
+
+.product-name {
+    font-size: 15px;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fs-15 {
+    font-size: 15px;
+}
+
+.shipping-info svg {
+    display: inline-block;
+}
+
+.badge {
+    background-color: #edf8fa;
+    color: #3ebdbc;
+    border: 1px solid #e0e9e6;
+    border-radius: 3px;
+    padding: 2px 3px;
+}
+
+.badge img {
+    width: 16px;
+    display: inline-block;
+}
+
+.voucher-cont {
+    flex: 0 0 50%;
+    max-width: calc(50% - 5px);
+    position: relative;
+}
+
+.voucher-cont::before, .voucher-cont:after {
+    content: "";
+    border-radius: 50%;
+    display: block;
+    border: 1px solid transparent;
+}
+
+.cover, .voucher-cont::before, .voucher-cont:after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+}
+
+.voucher-cont::before {
+    left: -7px;
+}
+
+.voucher-cont::after {
+    right: -7px;
+}
+
+.voucher-cont .cover:first-of-type {
+    left: -13px;
+}
+
+.voucher-cont .cover:last-of-type {
+    right: -13px;
+    z-index: 1;
+}
+
+.voucher-cont > div {
+    white-space: nowrap;
+}
+
+.voucher-cont > div:first-child {
+    max-width: calc(100% - 58px);
+}
+
+.voucher-cont > div:first-child > * {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    border-radius: 4px;
+}
+
+.voucher-cont strong {
+    font-weight: 600;
+}
+
+.voucher-green {
+    background-color: #f1fbfc;
+    color: #3ebdbc;
+    border: 1px solid #e0e9e6;
+}
+
+.voucher-green:after, .voucher-green::before {
+    border-color: #e0e9e6;
+}
+
+.voucher-red {
+    background-color: #fff9fb;
+    color: #ff92af;
+    border: 1px solid #feedf1;
+}
+
+.voucher-red:after, .voucher-red::before {
+    border-color: #feedf1;
+}
+
+.payment-icon {
+    background: #f1f1f1;
+    min-width: 35px;
+    height: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.5rem;
+}
+
+.payment-icon.green {
+    color: #fff;
+    font-weight: 600;
+    background-color: #50ab7a;
+}

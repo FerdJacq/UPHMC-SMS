@@ -1,0 +1,154 @@
+<?php
+
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+use Log;
+use Helper;
+use GuzzleHttp\Client;
+use App\Models\Transaction;
+use App\Models\ServiceProvider;
+
+use App\Http\Controllers\EmailNotificationController;
+
+class TransactBlockchain extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'transact:blockchain';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+        $data = Transaction::with(["ServiceProvider","customer"])
+        ->where("status","COMPLETED")
+	->where("email_notified","!=","2")
+        
+//->where("blockchain_status","0")
+        //->whereNotNull("or_number")
+	->whereNotNull("customer_id")
+        ->get();
+        // echo json_encode($data);
+        foreach ($data as $item) {
+            // echo json_encode($item);
+            // $blockchain = $this->insert_blockchain($item->ServiceProvider,$item);
+            //$item->blockchain_trx_id = $blockchain["tx"];
+            //echo $blockchain["id"];
+            //$item->blockchain_block_number = $blockchain["id"];
+            //$item->blockchain_status=2;
+            //$item->save();
+            if($item->customer && !$item->email_notified)
+            {
+                $notify = EmailNotificationController::officialReceipt($item->reference_number);
+                if ($notify)
+                {
+                    $item->email_notified = 2;
+
+		echo "Print"
+                    $item->save();
+                }
+            }
+        }
+       
+    }
+
+    private function insert_blockchain($dsp,$data){
+        $client = new Client();
+        $id = Helper::ref_number("BL"."0",32);
+
+        // Prepare the request with the necessary options
+        $options = [
+            'auth' => [env("KALEIDO_USERNAME"), env("KALEIDO_PASSWORD")], // Provide username and password
+            'json' => [
+                    "input"=>  
+                    [
+                        "id"=>$id,
+                        "or_number"=>$data->or_number, //remove for testing
+                        // "or_number"=>$id, 
+                        "company_name"=>$dsp->company_name,
+                        "shipping_fee"=>number_format($data->shipping_fee,2),
+                        "discount"=>number_format(($data->coins + $data->voucher),2),
+                        "subtotal"=>number_format($data->subtotal_amount,2),
+                        "total_amount"=>number_format($data->total_amount,2),
+                        "net_sales"=>number_format($data->base_price,2),
+                        "withholding_tax"=>number_format($data->withholding_tax,2),
+                        "online_platform_vat"=>number_format($data->online_platform_vat,2),
+                        "shipping_vat"=>number_format($data->shipping_vat,2),
+                        "item_vat"=>number_format($data->item_vat,2),
+                        "total_taxes_due"=>number_format($data->tax,2)
+                    ]   
+            ]
+        ];
+
+        Log::info(json_encode($options));
+
+        // Send the POST request
+        $response = $client->post(env("KALEIDO_API_URL_TRANSACTION"), $options);
+
+        // Get the response body as a string
+        $body = json_decode($response->getBody()->getContents(),true);
+
+        return $body;
+    }
+
+    private function insert_blockchain_on_node($dsp,$data){
+        $client = new Client();
+        $id = Helper::ref_number("BL"."0",32);
+
+        // Prepare the request with the necessary options
+        $options = [
+            'auth' => [env("KALEIDO_USERNAME"), env("KALEIDO_PASSWORD")], // Provide username and password
+            'json' => [
+                'headers' => [
+                    "type"=>"SendTransaction",
+                    "signer"=>"user1",
+                    "channel"=>"default-channel",
+                    "chaincode"=>"transaction"
+                ],
+                "func"=>"CreateAsset",
+                "args"=>[
+                    $id, 
+                    $data->or_number,
+                    $dsp->company_name,
+                    $data->total_amount,
+                    $data->tax
+                ],
+                "init"=>false
+            ]
+        ];
+
+        Log::info(json_encode($options));
+
+        // Send the POST request
+        $response = $client->post(env("KALEIDO_API_URL")."/transactions", $options);
+
+        // Get the response body as a string
+        $body = json_decode($response->getBody()->getContents(),true);
+
+        return $body;
+    }
+}

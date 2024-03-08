@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="js windows chrome desktop page--no-banner page--logo-main page--show page--show card-fields cors svg opacity placeholder no-touchevents displaytable display-table generatedcontent cssanimations flexbox no-flexboxtweener anyflexbox no-shopemoji floating-labels">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>ShopSM - Payment</title>
+	<link href="./css/style.css" rel="stylesheet">
+	<link href="./css/custom.css" rel="stylesheet">
+</head>
+<body>
+	<div class="content" data-content="">
+		<div class="wrap">
+			<div class="main">
+				<header class="main__header" role="banner">
+					<a class="logo logo--center" href="javascript:void(0);"><img alt="ShopSM" class="logo__image logo__image--medium" src="./img/logo.png"></a>
+					<h1 class="visually-hidden">Payment</h1>
+					<nav aria-label="Breadcrumb">
+						<ol class="breadcrumb breadcrumb--center" role="list">
+							<li class="breadcrumb__item breadcrumb__item--completed">
+								<a class="breadcrumb__link" data-trekkie-id="breadcrumb_cart_link" href="javascript:void(0);">Bag</a>
+                                <svg aria-hidden="true" class="icon-svg icon-svg--color-adaptive-light icon-svg--size-10 breadcrumb__chevron-icon">
+								    <use xlink:href="#chevron-right"></use>
+                                </svg>
+							</li>
+							<li class="breadcrumb__item breadcrumb__item--completed">
+								<span class="breadcrumb__text">Shipping</span>
+                                <svg aria-hidden="true" class="icon-svg icon-svg--color-adaptive-light icon-svg--size-10 breadcrumb__chevron-icon">
+								    <use xlink:href="#chevron-right"></use>
+                                </svg>
+							</li>
+							<li class="breadcrumb__item breadcrumb__item--current"><span class="breadcrumb__text">Payment</span></li>
+						</ol>
+					</nav>
+					<div class="shown-if-js" data-alternative-payments=""></div>
+				</header>
+				<main class="main__content" role="main">
+					<div class="step" data-last-step="true" data-step="payment_method">
+						<div class="step__sections">
+							<div class="section">
+								<div class="content-box">
+									<div class="content-box__row content-box__row--tight-spacing-vertical" role="table">
+										<div class="review-block" role="row">
+											<div class="review-block__inner">
+												<div class="review-block__label" role="rowheader">Contact</div>
+												<div class="review-block__content" role="cell">
+													<bdo dir="ltr">johndoe@gmail.com</bdo>
+												</div>
+											</div>
+											<div class="review-block__link" role="cell" style="display: none;">
+												<a class="link--small" href="javascript:void(0);">
+                                                    <span aria-hidden="true">Change</span>
+                                                    <span class="visually-hidden">Change contact information</span>
+                                                </a>
+											</div>
+										</div>
+										<div class="review-block" role="row">
+											<div class="review-block__inner">
+												<div class="review-block__label" role="rowheader">Ship to</div>
+												<div class="review-block__content" role="cell">
+													<address class="address address--tight">1069 Purok 7, CAINGIN, 4026 SANTA ROSA, LAG, Philippines</address>
+												</div>
+											</div>
+											<div class="review-block__link" role="cell" style="display: none;">
+												<a class="link--small" href="javascript:void(0);">
+                                                    <span aria-hidden="true">Change</span>
+                                                    <span class="visually-hidden">Change shipping address</span>
+                                                </a>
+											</div>
+										</div>
+										<div class="review-block" role="row">
+											<div class="review-block__inner">
+												<div class="review-block__label" role="rowheader">Method</div>
+												<div class="review-block__content" data-review-section="shipping-cost" role="cell">
+													Standard Shipping· <strong class="emphasis"><span class="skeleton-while-loading--inline">₱89.00</span></strong>
+												</div>
+											</div>
+											<div class="review-block__link" role="cell">
+												<a class="link--small" href="javascript:void(0);">
+                                                    <span aria-hidden="true">Change</span>
+                                                    <span class="visually-hidden">Change checkout method</span>
+                                                </a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<form accept-charset="UTF-8" class="edit_checkout animate-floating-labels" data-payment-form="" method="post">
+								<input autocomplete="off" name="_method" type="hidden" value="patch">
+                                <input autocomplete="off" name="authenticity_token" type="hidden" value="IJNZd89u7X4OQPfBHmeLTLCta2_ExduZSqJIbWkz9OK6_3fRRRlT-pWgiHZDMlBAkzJx49mjGY2VMmfUWsZ3Fg"> <input autocomplete="off" id="previous_step" name="previous_step" type="hidden" value="payment_method"> <input autocomplete="off" name="step" type="hidden"> <input autocomplete="off" id="s" name="s" type="hidden">
+								<div class="section section--payment-method" data-payment-method="">
+									<div class="section__header">
+										<h2 class="section__title" id="main-header" tabindex="-1">Payment</h2>
+										<p class="section__text">All transactions are secure and encrypted.</p>
+									</div>
+									<div class="section__content">
+										<div data-payment-subform="required">
+											<fieldset class="content-box">
+												<div class="radio-wrapper content-box__row" data-gateway-group="manual" data-gateway-name="manual" data-select-gateway="57350815897" data-submit-i18n-key="complete_order">
+													<div class="radio__input">
+														<input class="input-radio" data-backup="payment_gateway_57350815897" checked="checked" id="checkout_payment_gateway_57350815897" name="checkout[payment_gateway]" type="radio" value="57350815897">
+													</div>
+													<div class="radio__label">
+														<label class="radio__label__primary content-box__emphasis" for="checkout_payment_gateway_57350815897">Cash on Delivery (COD)</label>
+													</div>
+													<div aria-live="polite" class="visually-hidden" data-detected="Detected card brand: {brand}" id="payment_gateway_57350815897_description"></div>
+												</div>
+												<div class="radio-wrapper content-box__row" data-gateway-group="alternative" data-gateway-name="offsite_v2" data-select-gateway="73745662130" data-submit-i18n-key="complete_order">
+													<div class="radio__input">
+														<input aria-controls="payment-gateway-subfields-73745662130" aria-describedby="payment_gateway_73745662130_description" class="input-radio" data-backup="payment_gateway_73745662130" id="checkout_payment_gateway_73745662130" name="checkout[payment_gateway]" type="radio" value="73745662130">
+													</div>
+													<div class="radio__label payment-method-wrapper">
+														<label class="radio__label__primary content-box__emphasis" for="checkout_payment_gateway_73745662130">Credit/Debit Card, GCash, Maya, GrabPay, and more</label>
+														<div class="radio__label__accessory">
+															<h3 class="visually-hidden">Pay with:</h3>
+															<ul data-brand-icons-for-gateway="73745662130" role="list">
+																<li class="payment-icon payment-icon--visa" data-payment-icon="visa"><span class="visually-hidden">Visa,</span></li>
+																<li class="payment-icon payment-icon--master" data-payment-icon="master"><span class="visually-hidden">Mastercard,</span></li>
+																<li class="payment-icon payment-icon--american-express" data-payment-icon="american-express"><span class="visually-hidden">American Express,</span></li>
+																<li class="payment-icon payment-icon--jcb" data-payment-icon="jcb"><span class="visually-hidden">JCB,</span></li>
+																<li class="payment-icon-list__more"><small class="content-box__small-text">and more…</small></li>
+															</ul>
+														</div>
+													</div>
+													<div aria-live="polite" class="visually-hidden" data-detected="Detected card brand: {brand}" id="payment_gateway_73745662130_description"></div>
+												</div>
+												<div class="radio-wrapper content-box__row content-box__row--secondary hidden" data-subfields-for-gateway="73745662130" id="payment-gateway-subfields-73745662130">
+													<div class="blank-slate">
+														<i class="blank-slate__icon icon icon--offsite"></i>
+														<p class="shown-if-js">After clicking “Complete order”, you will be redirected to iPay88 Philippines Online Payment to complete your purchase securely.</p>
+														<p class="hidden-if-js">After clicking “Continue to payment”, you will be redirected to iPay88 Philippines Online Payment to complete your purchase securely.</p>
+													</div>
+												</div>
+												<div class="radio-wrapper content-box__row" data-gateway-group="alternative" data-gateway-name="offsite_v2" data-select-gateway="74815996082" data-submit-i18n-key="complete_order">
+													<div class="radio__input">
+														<input aria-controls="payment-gateway-subfields-74815996082" aria-describedby="payment_gateway_74815996082_description" class="input-radio" data-backup="payment_gateway_74815996082" id="checkout_payment_gateway_74815996082" name="checkout[payment_gateway]" type="radio" value="74815996082">
+													</div>
+													<div class="radio__label">
+														<label class="radio__label__primary content-box__emphasis" for="checkout_payment_gateway_74815996082">Metrobank Installment 0% by 2C2P</label>
+														<div class="radio__label__accessory">
+															<h3 class="visually-hidden">Pay with:</h3>
+															<ul data-brand-icons-for-gateway="74815996082" role="list">
+																<li class="payment-icon payment-icon--visa" data-payment-icon="visa"><span class="visually-hidden">Visa,</span></li>
+																<li class="payment-icon payment-icon--master" data-payment-icon="master"><span class="visually-hidden">Mastercard,</span></li>
+															</ul>
+														</div>
+													</div>
+													<div aria-live="polite" class="visually-hidden" data-detected="Detected card brand: {brand}" id="payment_gateway_74815996082_description"></div>
+												</div>
+												<div class="radio-wrapper content-box__row content-box__row--secondary hidden" data-subfields-for-gateway="74815996082" id="payment-gateway-subfields-74815996082">
+													<div class="blank-slate">
+														<i class="blank-slate__icon icon icon--offsite"></i>
+														<p class="shown-if-js">After clicking “Complete order”, you will be redirected to 2C2P to complete your purchase securely.</p>
+														<p class="hidden-if-js">After clicking “Continue to payment”, you will be redirected to 2C2P to complete your purchase securely.</p>
+													</div>
+												</div>
+												<div class="radio-wrapper content-box__row" data-gateway-group="alternative" data-gateway-name="offsite_v2" data-select-gateway="74154672306" data-submit-i18n-key="complete_order">
+													<div class="radio__input">
+														<input aria-controls="payment-gateway-subfields-74154672306" aria-describedby="payment_gateway_74154672306_description" class="input-radio" data-backup="payment_gateway_74154672306" id="checkout_payment_gateway_74154672306" name="checkout[payment_gateway]" type="radio" value="74154672306">
+													</div>
+													<div class="radio__label">
+														<label class="radio__label__primary content-box__emphasis" for="checkout_payment_gateway_74154672306">Atome PayLater - 3 easy payments, 0% interest</label>
+														<div class="radio__label__accessory">
+															<h3 class="visually-hidden">Pay with:</h3>
+															<ul data-brand-icons-for-gateway="74154672306" role="list">
+																<li class="payment-icon payment-icon--atome" data-payment-icon="atome"><span class="visually-hidden">,</span></li>
+																<li class="payment-icon payment-icon--visa" data-payment-icon="visa"><span class="visually-hidden">Visa,</span></li>
+																<li class="payment-icon payment-icon--master" data-payment-icon="master"><span class="visually-hidden">Mastercard,</span></li>
+															</ul>
+														</div>
+													</div>
+													<div aria-live="polite" class="visually-hidden" data-detected="Detected card brand: {brand}" id="payment_gateway_74154672306_description"></div>
+												</div>
+												<legend class="visually-hidden">Choose a payment method</legend>
+											</fieldset>
+										</div>
+										<div class="hidden" data-payment-subform="gift_cards">
+											<input autocomplete="off" disabled="disabled" name="checkout[payment_gateway]" size="30" type="hidden" value="free">
+											<div class="content-box blank-slate">
+												<div class="content-box__row">
+													<i class="blank-slate__icon icon icon--free-tag"></i>
+													<p>Your order is covered by your gift cards.</p>
+												</div>
+											</div>
+										</div>
+										<div class="hidden" data-payment-subform="free"></div>
+									</div>
+								</div>
+								<div class="section section--billing-address" data-billing-address="">
+									<div class="section__header">
+										<h2 class="section__title">Billing address</h2>
+										<p class="section__text">Select the address that matches your card or payment method.</p>
+									</div>
+									<div class="section__content">
+										<fieldset class="content-box">
+											<legend class="visually-hidden">Choose a billing address</legend>
+											<div class="radio-wrapper content-box__row" data-same-billing-address="">
+												<div class="radio__input">
+													<input checked="checked" class="input-radio" data-backup="different_billing_address_false" id="checkout_different_billing_address_false" name="checkout[different_billing_address]" type="radio" value="false">
+												</div><label class="radio__label content-box__emphasis" for="checkout_different_billing_address_false">Same as shipping address</label>
+											</div>
+											<div class="radio-wrapper content-box__row" data-different-billing-address="">
+												<div class="radio__input">
+													<input aria-controls="section--billing-address__different" class="input-radio" data-backup="different_billing_address_true" id="checkout_different_billing_address_true" name="checkout[different_billing_address]" type="radio" value="true">
+												</div><label class="radio__label content-box__emphasis" for="checkout_different_billing_address_true">Use a different billing address</label>
+											</div>
+											<div class="radio-group__row content-box__row content-box__row--secondary hidden" id="section--billing-address__different">
+												<div class="fieldset">
+													<div class="address-fields" data-address-fields="">
+														<input aria-hidden="true" aria-label="no-label" aria-required="true" autocomplete="billing given-name" class="visually-hidden" data-autocomplete-field="first_name" data-honeypot="true" disabled name="checkout[billing_address][first_name]" size="30" tabindex="-1" type="text"> <input aria-hidden="true" aria-label="no-label" aria-required="true" autocomplete="billing family-name" class="visually-hidden" data-autocomplete-field="last_name" data-honeypot="true" disabled name="checkout[billing_address][last_name]" size="30" tabindex="-1" type="text"> <input aria-hidden="true" aria-label="no-label" aria-required="true" autocomplete="billing address-line1" class="visually-hidden" data-autocomplete-field="address1" data-honeypot="true" disabled name="checkout[billing_address][address1]" size="30" tabindex="-1" type="text"> <input aria-hidden="true" aria-label="no-label" autocomplete="billing address-line2" class="visually-hidden" data-autocomplete-field="address2" data-honeypot="true" disabled name="checkout[billing_address][address2]" size="30" tabindex="-1" type="text"> <input aria-hidden="true" aria-label="no-label" aria-required="true" autocomplete="billing address-level2" class="visually-hidden" data-autocomplete-field="city" data-honeypot="true" disabled name="checkout[billing_address][city]" size="30" tabindex="-1" type="text"> <input aria-hidden="true" aria-label="no-label" aria-required="true" autocomplete="billing country" class="visually-hidden" data-autocomplete-field="country" data-honeypot="true" disabled name="checkout[billing_address][country]" size="30" tabindex="-1" type="text"> <input aria-hidden="true" aria-label="no-label" aria-required="true" autocomplete="billing address-level1" class="visually-hidden" data-autocomplete-field="province" data-honeypot="true" disabled name="checkout[billing_address][province]" size="30" tabindex="-1" type="text"> <input aria-hidden="true" aria-label="no-label" aria-required="true" autocomplete="billing postal-code" class="visually-hidden" data-autocomplete-field="zip" data-honeypot="true" disabled name="checkout[billing_address][zip]" size="30" tabindex="-1" type="text"> <input aria-hidden="true" aria-label="no-label" aria-required="true" autocomplete="billing tel" class="visually-hidden" data-autocomplete-field="phone" data-honeypot="true" disabled name="checkout[billing_address][phone]" size="30" tabindex="-1" type="text">
+														<div class="field field--required field--show-floating-label">
+															<div class="field__input-wrapper field__input-wrapper--select">
+																<label class="field__label field__label--visible" for="checkout_billing_address_id">Saved addresses</label> <select aria-required="true" class="field__input field__input--select" data-address-selector="" data-backup="contact_stored_addresses" data-field-name-format="checkout[billing_address][%s]" disabled id="checkout_billing_address_id" name="checkout[billing_address][id]">
+																	<option data-properties="{&quot;id&quot;:7888541876402,&quot;customer_id&quot;:6556584673458,&quot;first_name&quot;:&quot;Ed Lui&quot;,&quot;last_name&quot;:&quot;Diongco&quot;,&quot;company&quot;:&quot;LatLng: 14.305626576561444, 121.12456656610017&quot;,&quot;address1&quot;:&quot;540 Purok 3&quot;,&quot;address2&quot;:&quot;Caingin&quot;,&quot;city&quot;:&quot;Santa Rosa&quot;,&quot;province&quot;:&quot;Laguna&quot;,&quot;country&quot;:&quot;Philippines&quot;,&quot;zip&quot;:&quot;4026&quot;,&quot;phone&quot;:&quot;09190071215&quot;,&quot;name&quot;:&quot;Ed Lui Diongco&quot;,&quot;province_code&quot;:&quot;PH-LAG&quot;,&quot;country_code&quot;:&quot;PH&quot;,&quot;country_name&quot;:&quot;Philippines&quot;,&quot;default&quot;:true}" selected="selected" value="7888541876402">
+																		540 Purok 3, Caingin, 4026 Santa Rosa, LAG, Philippines (Ed Lui Diongco, LatLng: 14.305626576561444, 121.12456656610017)
+																	</option>
+																	<option value="">
+																		Use a new address
+																	</option>
+																</select>
+																<div class="field__caret">
+																	<svg aria-hidden="true" class="icon-svg icon-svg--color-adaptive-lighter icon-svg--size-10 field__caret-svg" role="presentation">
+																	<use xlink:href="#caret-down"></use></svg>
+																</div>
+															</div>
+														</div>
+														<div class="field field--required field--show-floating-label" data-address-field="country" data-autocomplete-field-container="true" style="width: 100%;">
+															<div class="field__input-wrapper field__input-wrapper--select">
+																<label class="field__label field__label--visible" for="checkout_billing_address_country">Country/region</label> <select aria-required="true" class="field__input field__input--select" data-backup="country" disabled id="checkout_billing_address_country" name="checkout[billing_address][country]" size="1">
+																	<option data-code="PH" selected="selected" value="Philippines">
+																		Philippines
+																	</option>
+																</select>
+																<div class="field__caret">
+																	<svg aria-hidden="true" class="icon-svg icon-svg--color-adaptive-lighter icon-svg--size-10 field__caret-svg" role="presentation">
+																	<use xlink:href="#caret-down"></use></svg>
+																</div>
+															</div>
+														</div>
+														<div class="field field--required field--half field--show-floating-label" data-address-field="first_name">
+															<div class="field__input-wrapper">
+																<label class="field__label field__label--visible lbl-required" for="checkout_billing_address_first_name">First name</label> <input aria-required="true" autocomplete="billing given-name" class="field__input" data-backup="first_name" disabled id="checkout_billing_address_first_name" name="checkout[billing_address][first_name]" placeholder="First name" size="30" type="text">
+															</div>
+														</div>
+														<div class="field field--required field--half field--show-floating-label" data-address-field="last_name">
+															<div class="field__input-wrapper">
+																<label class="field__label field__label--visible lbl-required" for="checkout_billing_address_last_name">Last name</label> <input aria-required="true" autocomplete="billing family-name" class="field__input" data-backup="last_name" disabled id="checkout_billing_address_last_name" name="checkout[billing_address][last_name]" placeholder="Last name" size="30" type="text">
+															</div>
+														</div>
+														<div class="field field--required field--show-floating-label" data-address-field="address1" data-autocomplete-field-container="true">
+															<div class="field__input-wrapper">
+																<label class="field__label field__label--visible lbl-required" for="checkout_billing_address_address1">Address</label> <input aria-required="true" autocomplete="billing address-line1" class="field__input" data-backup="address1" disabled id="checkout_billing_address_address1" name="checkout[billing_address][address1]" placeholder="Address" size="30" type="text">
+																<p class="field__additional-info visually-hidden" data-address-civic-number-warning=""><svg aria-hidden="true" class="icon-svg icon-svg--size-16 field__message__icon">
+																<use xlink:href="#info"></use></svg> Add a house number if you have one</p>
+															</div>
+														</div>
+														<div class="field field--optional field--show-floating-label" data-address-field="address2" data-autocomplete-field-container="true">
+															<div class="field__input-wrapper">
+																<label class="field__label field__label--visible" for="checkout_billing_address_address2">Apartment, suite, etc. (optional)</label> <input autocomplete="billing address-line2" class="field__input" data-backup="address2" disabled id="checkout_billing_address_address2" name="checkout[billing_address][address2]" placeholder="Apartment, suite, etc. (optional)" size="30" type="text">
+															</div>
+														</div>
+														<div class="field field--required field--half field--show-floating-label" data-address-field="zip" data-autocomplete-field-container="true">
+															<div class="field__input-wrapper">
+																<label class="field__label field__label--visible lbl-required" for="checkout_billing_address_zip">Postal code</label> <input aria-required="true" autocomplete="billing postal-code" class="field__input field__input--zip" data-backup="zip" disabled id="checkout_billing_address_zip" name="checkout[billing_address][zip]" placeholder="Postal code" size="30" type="text">
+															</div>
+														</div>
+														<div class="field field--required field--half field--show-floating-label" data-address-field="city" data-autocomplete-field-container="true" style="display: block;">
+															<div class="field__input-wrapper">
+																<label class="field__label field__label--visible" for="checkout_billing_address_city">City</label> <input aria-required="true" autocomplete="billing address-level2" class="field__input" data-backup="city" disabled id="checkout_billing_address_city" name="checkout[billing_address][city]" placeholder="City" size="30" type="text">
+															</div>
+														</div>
+														<div class="field field--required field--show-floating-label" data-address-field="province" data-autocomplete-field-container="true" style="display: block;">
+															<div class="field__input-wrapper field__input-wrapper--select">
+																<label class="field__label field__label--visible lbl-required" for="checkout_billing_address_province">Province</label> <select aria-required="true" class="field__input field__input--select" data-backup="province" disabled id="checkout_billing_address_province" name="checkout[billing_address][province]">
+																	<option disabled>
+																		Province
+																	</option>
+																	<option data-alternate-values="[&quot;Abra&quot;]" value="PH-ABR">
+																		Abra
+																	</option>
+																	<option data-alternate-values="[&quot;Agusan del Norte&quot;]" value="PH-AGN">
+																		Agusan del Norte
+																	</option>
+																	<option data-alternate-values="[&quot;Agusan del Sur&quot;]" value="PH-AGS">
+																		Agusan del Sur
+																	</option>
+																	<option data-alternate-values="[&quot;Aklan&quot;]" value="PH-AKL">
+																		Aklan
+																	</option>
+																	<option data-alternate-values="[&quot;Albay&quot;]" value="PH-ALB">
+																		Albay
+																	</option>
+																	<option data-alternate-values="[&quot;Antique&quot;]" value="PH-ANT">
+																		Antique
+																	</option>
+																	<option data-alternate-values="[&quot;Apayao&quot;]" value="PH-APA">
+																		Apayao
+																	</option>
+																	<option data-alternate-values="[&quot;Aurora&quot;]" value="PH-AUR">
+																		Aurora
+																	</option>
+																	<option data-alternate-values="[&quot;Basilan&quot;]" value="PH-BAS">
+																		Basilan
+																	</option>
+																	<option data-alternate-values="[&quot;Bataan&quot;]" value="PH-BAN">
+																		Bataan
+																	</option>
+																	<option data-alternate-values="[&quot;Batanes&quot;]" value="PH-BTN">
+																		Batanes
+																	</option>
+																	<option data-alternate-values="[&quot;Batangas&quot;]" value="PH-BTG">
+																		Batangas
+																	</option>
+																	<option data-alternate-values="[&quot;Benguet&quot;]" value="PH-BEN">
+																		Benguet
+																	</option>
+																	<option data-alternate-values="[&quot;Biliran&quot;]" value="PH-BIL">
+																		Biliran
+																	</option>
+																	<option data-alternate-values="[&quot;Bohol&quot;]" value="PH-BOH">
+																		Bohol
+																	</option>
+																	<option data-alternate-values="[&quot;Bukidnon&quot;]" value="PH-BUK">
+																		Bukidnon
+																	</option>
+																	<option data-alternate-values="[&quot;Bulacan&quot;]" value="PH-BUL">
+																		Bulacan
+																	</option>
+																	<option data-alternate-values="[&quot;Cagayan&quot;]" value="PH-CAG">
+																		Cagayan
+																	</option>
+																	<option data-alternate-values="[&quot;Camarines Norte&quot;]" value="PH-CAN">
+																		Camarines Norte
+																	</option>
+																	<option data-alternate-values="[&quot;Camarines Sur&quot;]" value="PH-CAS">
+																		Camarines Sur
+																	</option>
+																	<option data-alternate-values="[&quot;Camiguin&quot;]" value="PH-CAM">
+																		Camiguin
+																	</option>
+																	<option data-alternate-values="[&quot;Capiz&quot;]" value="PH-CAP">
+																		Capiz
+																	</option>
+																	<option data-alternate-values="[&quot;Catanduanes&quot;]" value="PH-CAT">
+																		Catanduanes
+																	</option>
+																	<option data-alternate-values="[&quot;Cavite&quot;]" value="PH-CAV">
+																		Cavite
+																	</option>
+																	<option data-alternate-values="[&quot;Cebu&quot;]" value="PH-CEB">
+																		Cebu
+																	</option>
+																	<option data-alternate-values="[&quot;Davao de Oro&quot;]" value="PH-COM">
+																		Compostela Valley
+																	</option>
+																	<option data-alternate-values="[&quot;Cotabato&quot;]" value="PH-NCO">
+																		Cotabato
+																	</option>
+																	<option data-alternate-values="[&quot;Davao Occidental&quot;]" value="PH-DVO">
+																		Davao Occidental
+																	</option>
+																	<option data-alternate-values="[&quot;Davao Oriental&quot;]" value="PH-DAO">
+																		Davao Oriental
+																	</option>
+																	<option data-alternate-values="[&quot;Davao del Norte&quot;]" value="PH-DAV">
+																		Davao del Norte
+																	</option>
+																	<option data-alternate-values="[&quot;Davao del Sur&quot;]" value="PH-DAS">
+																		Davao del Sur
+																	</option>
+																	<option data-alternate-values="[&quot;Dinagat Islands&quot;]" value="PH-DIN">
+																		Dinagat Islands
+																	</option>
+																	<option data-alternate-values="[&quot;Eastern Samar&quot;]" value="PH-EAS">
+																		Eastern Samar
+																	</option>
+																	<option data-alternate-values="[&quot;Guimaras&quot;]" value="PH-GUI">
+																		Guimaras
+																	</option>
+																	<option data-alternate-values="[&quot;Ifugao&quot;]" value="PH-IFU">
+																		Ifugao
+																	</option>
+																	<option data-alternate-values="[&quot;Ilocos Norte&quot;]" value="PH-ILN">
+																		Ilocos Norte
+																	</option>
+																	<option data-alternate-values="[&quot;Ilocos Sur&quot;]" value="PH-ILS">
+																		Ilocos Sur
+																	</option>
+																	<option data-alternate-values="[&quot;Iloilo&quot;]" value="PH-ILI">
+																		Iloilo
+																	</option>
+																	<option data-alternate-values="[&quot;Isabela&quot;]" value="PH-ISA">
+																		Isabela
+																	</option>
+																	<option data-alternate-values="[&quot;Kalinga&quot;]" value="PH-KAL">
+																		Kalinga
+																	</option>
+																	<option data-alternate-values="[&quot;La Union&quot;]" value="PH-LUN">
+																		La Union
+																	</option>
+																	<option data-alternate-values="[&quot;Laguna&quot;]" value="PH-LAG">
+																		Laguna
+																	</option>
+																	<option data-alternate-values="[&quot;Lanao del Norte&quot;]" value="PH-LAN">
+																		Lanao del Norte
+																	</option>
+																	<option data-alternate-values="[&quot;Lanao del Sur&quot;]" value="PH-LAS">
+																		Lanao del Sur
+																	</option>
+																	<option data-alternate-values="[&quot;Leyte&quot;]" value="PH-LEY">
+																		Leyte
+																	</option>
+																	<option data-alternate-values="[&quot;Maguindanao&quot;]" value="PH-MAG">
+																		Maguindanao
+																	</option>
+																	<option data-alternate-values="[&quot;Marinduque&quot;]" value="PH-MAD">
+																		Marinduque
+																	</option>
+																	<option data-alternate-values="[&quot;Masbate&quot;]" value="PH-MAS">
+																		Masbate
+																	</option>
+																	<option data-alternate-values="[&quot;Metro Manila&quot;]" value="PH-00">
+																		Metro Manila
+																	</option>
+																	<option data-alternate-values="[&quot;Misamis Occidental&quot;]" value="PH-MSC">
+																		Misamis Occidental
+																	</option>
+																	<option data-alternate-values="[&quot;Misamis Oriental&quot;]" value="PH-MSR">
+																		Misamis Oriental
+																	</option>
+																	<option data-alternate-values="[&quot;Mountain Province&quot;]" value="PH-MOU">
+																		Mountain
+																	</option>
+																	<option data-alternate-values="[&quot;Negros Occidental&quot;]" value="PH-NEC">
+																		Negros Occidental
+																	</option>
+																	<option data-alternate-values="[&quot;Negros Oriental&quot;]" value="PH-NER">
+																		Negros Oriental
+																	</option>
+																	<option data-alternate-values="[&quot;Northern Samar&quot;]" value="PH-NSA">
+																		Northern Samar
+																	</option>
+																	<option data-alternate-values="[&quot;Nueva Ecija&quot;]" value="PH-NUE">
+																		Nueva Ecija
+																	</option>
+																	<option data-alternate-values="[&quot;Nueva Vizcaya&quot;]" value="PH-NUV">
+																		Nueva Vizcaya
+																	</option>
+																	<option data-alternate-values="[&quot;Occidental Mindoro&quot;]" value="PH-MDC">
+																		Occidental Mindoro
+																	</option>
+																	<option data-alternate-values="[&quot;Oriental Mindoro&quot;]" value="PH-MDR">
+																		Oriental Mindoro
+																	</option>
+																	<option data-alternate-values="[&quot;Palawan&quot;]" value="PH-PLW">
+																		Palawan
+																	</option>
+																	<option data-alternate-values="[&quot;Pampanga&quot;]" value="PH-PAM">
+																		Pampanga
+																	</option>
+																	<option data-alternate-values="[&quot;Pangasinan&quot;]" value="PH-PAN">
+																		Pangasinan
+																	</option>
+																	<option data-alternate-values="[&quot;Quezon&quot;]" value="PH-QUE">
+																		Quezon
+																	</option>
+																	<option data-alternate-values="[&quot;Quirino&quot;]" value="PH-QUI">
+																		Quirino
+																	</option>
+																	<option data-alternate-values="[&quot;Rizal&quot;]" value="PH-RIZ">
+																		Rizal
+																	</option>
+																	<option data-alternate-values="[&quot;Romblon&quot;]" value="PH-ROM">
+																		Romblon
+																	</option>
+																	<option data-alternate-values="[&quot;Samar&quot;]" value="PH-WSA">
+																		Samar
+																	</option>
+																	<option data-alternate-values="[&quot;Sarangani&quot;]" value="PH-SAR">
+																		Sarangani
+																	</option>
+																	<option data-alternate-values="[&quot;Siquijor&quot;]" value="PH-SIG">
+																		Siquijor
+																	</option>
+																	<option data-alternate-values="[&quot;Sorsogon&quot;]" value="PH-SOR">
+																		Sorsogon
+																	</option>
+																	<option data-alternate-values="[&quot;South Cotabato&quot;]" value="PH-SCO">
+																		South Cotabato
+																	</option>
+																	<option data-alternate-values="[&quot;Southern Leyte&quot;]" value="PH-SLE">
+																		Southern Leyte
+																	</option>
+																	<option data-alternate-values="[&quot;Sultan Kudarat&quot;]" value="PH-SUK">
+																		Sultan Kudarat
+																	</option>
+																	<option data-alternate-values="[&quot;Sulu&quot;]" value="PH-SLU">
+																		Sulu
+																	</option>
+																	<option data-alternate-values="[&quot;Surigao del Norte&quot;]" value="PH-SUN">
+																		Surigao del Norte
+																	</option>
+																	<option data-alternate-values="[&quot;Surigao del Sur&quot;]" value="PH-SUR">
+																		Surigao del Sur
+																	</option>
+																	<option data-alternate-values="[&quot;Tarlac&quot;]" value="PH-TAR">
+																		Tarlac
+																	</option>
+																	<option data-alternate-values="[&quot;Tawi-Tawi&quot;]" value="PH-TAW">
+																		Tawi-Tawi
+																	</option>
+																	<option data-alternate-values="[&quot;Zambales&quot;]" value="PH-ZMB">
+																		Zambales
+																	</option>
+																	<option data-alternate-values="[&quot;Zamboanga Sibugay&quot;]" value="PH-ZSI">
+																		Zamboanga Sibugay
+																	</option>
+																	<option data-alternate-values="[&quot;Zamboanga del Norte&quot;]" value="PH-ZAN">
+																		Zamboanga del Norte
+																	</option>
+																	<option data-alternate-values="[&quot;Zamboanga del Sur&quot;]" value="PH-ZAS">
+																		Zamboanga del Sur
+																	</option>
+																</select>
+																<div class="field__caret shown-if-js">
+																	<svg aria-hidden="true" class="icon-svg icon-svg--color-adaptive-lighter icon-svg--size-10 field__caret-svg" role="presentation">
+																	<use xlink:href="#caret-down"></use></svg>
+																</div>
+															</div>
+														</div>
+														<div class="field field--required field--show-floating-label" data-address-field="phone">
+															<div class="field__input-wrapper field__input-wrapper--icon-right">
+																<label class="field__label field__label--visible lbl-required" for="checkout_billing_address_phone">Mobile Number</label> <input aria-required="true" autocomplete="billing tel" class="field__input field__input--numeric" data-backup="phone" data-phone-formatter="true" data-phone-formatter-country-code="63" data-phone-formatter-country-select="[name='checkout[billing_address][country]']" data-placeholder-label-optional="Phone (optional)" data-placeholder-label-required="Phone" disabled id="checkout_billing_address_phone" maxlength="11" name="checkout[billing_address][phone]" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))" placeholder="11-digit mobile number (ex. 09171234567)" size="30" type="tel">
+																<div class="field__icon">
+																	<div class="tooltip-container" data-tooltip="true" id="phone_tooltip">
+																		<button aria-controls="tooltip-for-phone" aria-describedby="tooltip-for-phone" aria-label="More information" aria-pressed="false" class="tooltip-control" data-tooltip-control="true" type="button"><svg aria-hidden="true" class="icon-svg icon-svg--color-adaptive-lighter icon-svg--size-16 icon-svg--block icon-svg--center" role="presentation">
+																		<use xlink:href="#question"></use></svg></button><span class="tooltip" id="tooltip-for-phone" role="tooltip">In case we need to contact you about your order</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</div>
+								</div>
+								<div class="step__footer" data-step-footer="">
+									<input autocomplete="off" id="checkout_total_price" name="checkout[total_price]" type="hidden" value="73875"> <input autocomplete="off" name="complete" type="hidden" value="1">
+									<div class="shown-if-js">
+										<button type="button" aria-busy="false" class="step__footer__continue-btn btn" id="continue_button" name="button" type="submit"><span class="btn__content" data-continue-button-content="true">Complete order</span><svg aria-hidden="true" class="icon-svg icon-svg--size-18 btn__spinner icon-svg--spinner-button">
+										<use xlink:href="#spinner-button"></use></svg></button>
+									</div>
+									<div class="hidden-if-js">
+										<button type="button" aria-busy="false" class="step__footer__continue-btn btn" id="continue_button" name="button" type="submit"><span class="btn__content" data-continue-button-content="true">Complete order</span><svg aria-hidden="true" class="icon-svg icon-svg--size-18 btn__spinner icon-svg--spinner-button">
+										<use xlink:href="#spinner-button"></use></svg></button>
+									</div><a class="step__footer__previous-link" href="/45052657817/checkouts/202854783db3b976fbce914831bcba55?step=contact_information" style="display: none;"><svg aria-hidden="true" class="icon-svg icon-svg--color-accent icon-svg--size-10 previous-link__icon" role="img" viewbox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+									<path d="M8 1L7 0 3 4 2 5l1 1 4 4 1-1-4-4"></path></svg><span class="step__footer__previous-link-content">Return to information</span></a>
+								</div><input name="checkout[client_details][browser_width]" type="hidden" value="1903"><input name="checkout[client_details][browser_height]" type="hidden" value="969"><input name="checkout[client_details][javascript_enabled]" type="hidden" value="1"><input name="checkout[client_details][color_depth]" type="hidden" value="24"><input name="checkout[client_details][java_enabled]" type="hidden" value="false"><input name="checkout[client_details][browser_tz]" type="hidden" value="-480">
+							</form>
+						</div>
+					</div>
+					<div class="hidden">
+						<span class="visually-hidden" id="forwarding-external-new-window-message">Opens external website in a new window.</span> <span class="visually-hidden" id="forwarding-new-window-message">Opens in a new window.</span> <span class="visually-hidden" id="forwarding-external-message">Opens external website.</span> <span class="visually-hidden" id="checkout-context-step-one">Customer information - ShopSM - Checkout</span>
+					</div>
+				</main>
+				<footer class="main__footer" role="contentinfo">
+					<ul class="policy-list" role="list">
+						<li class="policy-list__item">
+							<a aria-haspopup="dialog" data-close-text="Close" data-iframe="true" data-modal="policy-refund-policy" data-title-text="Refund policy" href="javascript:void(0);">Refund policy</a>
+						</li>
+						<li class="policy-list__item">
+							<a aria-haspopup="dialog" data-close-text="Close" data-iframe="true" data-modal="policy-shipping-policy" data-title-text="Shipping policy" href="javascript:void(0);">Shipping policy</a>
+						</li>
+						<li class="policy-list__item">
+							<a aria-haspopup="dialog" data-close-text="Close" data-iframe="true" data-modal="policy-privacy-policy" data-title-text="Privacy policy" href="javascript:void(0);">Privacy policy</a>
+						</li>
+						<li class="policy-list__item">
+							<a aria-haspopup="dialog" data-close-text="Close" data-iframe="true" data-modal="policy-terms-of-service" data-title-text="Terms of service" href="javascript:void(0);">Terms of service</a>
+						</li>
+					</ul>
+				</footer>
+			</div>
+			<aside class="sidebar" role="complementary">
+				<div class="sidebar__header">
+					<a class="logo logo--center" href="javascript:void(0);">
+                        <img alt="ShopSM" class="logo__image logo__image--medium" src="./img/logo.png">
+                    </a>
+					<h1 class="visually-hidden">Payment</h1>
+				</div>
+				<div class="sidebar__content">
+					<div class="order-summary order-summary--is-collapsed" data-order-summary="" id="order-summary">
+						<h2 class="visually-hidden-if-js">Order summary</h2>
+						<div class="order-summary__sections">
+							<div class="order-summary__section order-summary__section--product-list">
+								<div class="order-summary__section__content">
+									<table class="product-table">
+										<caption class="visually-hidden">
+											Shopping cart
+										</caption>
+										<thead class="product-table__header">
+											<tr>
+												<th scope="col"><span class="visually-hidden">Product image</span></th>
+												<th scope="col"><span class="visually-hidden">Description</span></th>
+												<th scope="col"><span class="visually-hidden">Quantity</span></th>
+												<th scope="col"><span class="visually-hidden">Price</span></th>
+											</tr>
+										</thead>
+										<tbody data-order-summary-section="line-items">
+											<tr class="product" data-customer-ready-visible="" data-product-id="7337542516914" data-product-type="" data-variant-id="42330279215282">
+												<td class="product__image">
+													<div class="product-thumbnail">
+														<div class="product-thumbnail__wrapper">
+                                                            <img alt="Jag Mens Graphic Tee" class="product-thumbnail__image" src="./img/item.jpg">
+                                                        </div>
+                                                        <span aria-hidden="true" class="product-thumbnail__quantity">1</span>
+													</div>
+												</td>
+												<th class="product__description" scope="row"><span class="product__description__name order-summary__emphasis">Jag Mens Graphic Tee</span> <span class="product__description__variant order-summary__small-text"></span></th>
+												<td class="product__quantity"><span class="visually-hidden">1</span></td>
+												<td class="product__price"><span class="order-summary__emphasis skeleton-while-loading">₱649.75</span></td>
+											</tr>
+										</tbody>
+									</table>
+									<div aria-hidden="true" class="order-summary__scroll-indicator" id="order-summary__scroll-indicator" tabindex="-1">
+										Scroll for more items <svg aria-hidden="true" class="icon-svg icon-svg--size-12">
+										<use xlink:href="#down-arrow"></use></svg>
+									</div>
+								</div>
+							</div>
+							<div class="order-summary__section order-summary__section--total-lines" data-order-summary-section="payment-lines">
+								<table class="total-line-table">
+									<caption class="visually-hidden">
+										Cost summary
+									</caption>
+									<thead>
+										<tr>
+											<th scope="col"><span class="visually-hidden">Description</span></th>
+											<th scope="col"><span class="visually-hidden">Price</span></th>
+										</tr>
+									</thead>
+									<tbody class="total-line-table__tbody">
+										<tr class="total-line total-line--subtotal">
+											<th class="total-line__name" scope="row">Subtotal</th>
+											<td class="total-line__price"><span class="order-summary__emphasis skeleton-while-loading" data-checkout-subtotal-price-target="64975">₱649.75</span></td>
+										</tr>
+										<tr class="total-line total-line--shipping">
+											<th class="total-line__name" scope="row"><span>Shipping</span></th>
+											<td class="total-line__price"><span class="skeleton-while-loading order-summary__emphasis" data-checkout-total-shipping-target="8900">₱89.00</span></td>
+										</tr>
+										<tr class="total-line total-line--taxes hidden" data-checkout-taxes="">
+											<th class="total-line__name" scope="row">Estimated taxes</th>
+											<td class="total-line__price"><span class="order-summary__emphasis skeleton-while-loading" data-checkout-total-taxes-target="0">₱0.00</span></td>
+										</tr>
+									</tbody>
+									<tfoot class="total-line-table__footer">
+										<tr class="total-line">
+											<th class="total-line__name payment-due-label" scope="row"><span class="payment-due-label__total">Total</span></th>
+											<td class="total-line__price payment-due" data-presentment-currency="PHP"><span class="payment-due__currency remove-while-loading">PHP</span> <span class="payment-due__price skeleton-while-loading--lg" data-checkout-payment-due-target="73875">₱738.75</span></td>
+										</tr>
+										<tr class="total-line" id="smac-pts">
+											<th class="total-line__name" style="text-align:left"><small style="white-space: nowrap;">SMAC points to be earned: 1 pts</small></th>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="visually-hidden" data-order-summary-section="accessibility-live-region">
+						<div aria-atomic="true" aria-live="polite" role="status">
+							Updated total price: <span data-checkout-payment-due-target="73875">₱738.75</span>
+						</div>
+					</div>
+					<div class="icon-symbols" data-tg-refresh="partial-icon-symbols" data-tg-refresh-always="true" id="partial-icon-symbols">
+						<svg xmlns="http://www.w3.org/2000/svg">
+						<symbol id="caret-down">
+							<svg>
+							<path d="M0 3h10L5 8" fill-rule="nonzero"></path></svg>
+						</symbol>
+						<symbol id="info">
+							<svg>
+							<path d="M12 11h1v7h-2v-5c-.552 0-1-.448-1-1s.448-1 1-1h1zm0 13C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-2c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM10.5 7.5c0-.828.666-1.5 1.5-1.5.828 0 1.5.666 1.5 1.5 0 .828-.666 1.5-1.5 1.5-.828 0-1.5-.666-1.5-1.5z"></path></svg>
+						</symbol>
+						<symbol id="question">
+							<svg>
+							<path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm.7 13H6.8v-2h1.9v2zm2.6-7.1c0 1.8-1.3 2.6-2.8 2.8l-.1 1.1H7.3L7 7.5l.1-.1c1.8-.1 2.6-.6 2.6-1.6 0-.8-.6-1.3-1.6-1.3-.9 0-1.6.4-2.3 1.1L4.7 4.5c.8-.9 1.9-1.6 3.4-1.6 1.9.1 3.2 1.2 3.2 3z"></path></svg>
+						</symbol>
+						<symbol id="spinner-button">
+							<svg>
+							<path d="M20 10c0 5.523-4.477 10-10 10S0 15.523 0 10 4.477 0 10 0v2c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8h2z"></path></svg>
+						</symbol>
+						<symbol id="chevron-right">
+							<svg>
+							<path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg>
+						</symbol>
+						<symbol id="down-arrow">
+							<svg>
+							<path d="M10.817 7.624l-4.375 4.2c-.245.235-.64.235-.884 0l-4.375-4.2c-.244-.234-.244-.614 0-.848.245-.235.64-.235.884 0L5.375 9.95V.6c0-.332.28-.6.625-.6s.625.268.625.6v9.35l3.308-3.174c.122-.117.282-.176.442-.176.16 0 .32.06.442.176.244.234.244.614 0 .848"></path></svg>
+						</symbol>
+						<symbol id="close">
+							<svg>
+							<path d="M15.1 2.3L13.7.9 8 6.6 2.3.9.9 2.3 6.6 8 .9 13.7l1.4 1.4L8 9.4l5.7 5.7 1.4-1.4L9.4 8"></path></svg>
+						</symbol>
+						<symbol id="spinner-small">
+							<svg>
+							<path d="M32 16c0 8.837-7.163 16-16 16S0 24.837 0 16 7.163 0 16 0v2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14h2z"></path></svg>
+						</symbol></svg>
+					</div>
+				</div>
+			</aside>
+		</div>
+	</div>
+
+    <div class="modal loader-modal">
+        <div class="modal-backdrop"></div>
+
+        <div class="modal-content">
+            <div class="modal-body center-all">
+                <!-- <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div> -->
+                <svg id="successAnimation" class="animated" xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70">
+                    <path id="successAnimationResult" fill="#D8D8D8" d="M35,60 C21.1928813,60 10,48.8071187 10,35 C10,21.1928813 21.1928813,10 35,10 C48.8071187,10 60,21.1928813 60,35 C60,48.8071187 48.8071187,60 35,60 Z M23.6332378,33.2260427 L22.3667622,34.7739573 L34.1433655,44.40936 L47.776114,27.6305926 L46.223886,26.3694074 L33.8566345,41.59064 L23.6332378,33.2260427 Z"/>
+                    <circle id="successAnimationCircle" cx="35" cy="35" r="24" stroke="#979797" stroke-width="2" stroke-linecap="round" fill="transparent"/>
+                    <polyline id="successAnimationCheck" stroke="#979797" stroke-width="2" points="23 34 34 43 47 27" fill="transparent"/>
+                </svg>
+                <h1>Processing</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal summary-modal">
+        <div class="modal-backdrop"></div>
+
+        <div class="modal-content">
+            <div class="order-summary order-summary--is-collapsed" data-order-summary="" id="order-summary">
+                <h2 class="visually-hidden-if-js">Order summary</h2>
+                <div class="order-summary__sections">
+                    <div class="order-summary__section order-summary__section--product-list">
+                        <div class="order-summary__section__content">
+                            <table class="product-table">
+                                <caption class="visually-hidden">
+                                    Shopping cart
+                                </caption>
+                                <thead class="product-table__header">
+                                    <tr>
+                                        <th scope="col"><span class="visually-hidden">Product image</span></th>
+                                        <th scope="col"><span class="visually-hidden">Description</span></th>
+                                        <th scope="col"><span class="visually-hidden">Quantity</span></th>
+                                        <th scope="col"><span class="visually-hidden">Price</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody data-order-summary-section="line-items">
+                                    <tr class="product" data-customer-ready-visible="" data-product-id="7337542516914" data-product-type="" data-variant-id="42330279215282">
+                                        <td class="product__image">
+                                            <div class="product-thumbnail">
+                                                <div class="product-thumbnail__wrapper">
+                                                    <img alt="Jag Mens Graphic Tee" class="product-thumbnail__image" src="./img/item.jpg">
+                                                </div>
+                                                <span aria-hidden="true" class="product-thumbnail__quantity">1</span>
+                                            </div>
+                                        </td>
+                                        <th class="product__description" scope="row"><span class="product__description__name order-summary__emphasis">Jag Mens Graphic Tee</span> <span class="product__description__variant order-summary__small-text"></span></th>
+                                        <td class="product__quantity"><span class="visually-hidden">1</span></td>
+                                        <td class="product__price"><span class="order-summary__emphasis skeleton-while-loading">₱649.75</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div aria-hidden="true" class="order-summary__scroll-indicator" id="order-summary__scroll-indicator" tabindex="-1">
+                                Scroll for more items <svg aria-hidden="true" class="icon-svg icon-svg--size-12">
+                                <use xlink:href="#down-arrow"></use></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-summary__section order-summary__section--total-lines" data-order-summary-section="payment-lines">
+                        <table class="total-line-table">
+                            <caption class="visually-hidden">
+                                Cost summary
+                            </caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col"><span class="visually-hidden">Description</span></th>
+                                    <th scope="col"><span class="visually-hidden">Price</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="total-line-table__tbody">
+								<tr class="total-line total-line--subtotal">
+                                    <th class="total-line__name" scope="row" style="padding-bottom: 20px; font-size: 23px;">Transaction #</th>
+                                    <td class="total-line__price" style="padding-bottom: 20px;"><span class="order-summary__emphasis skeleton-while-loading trx-no" style="font-size: 23px;">ABCD</span></td>
+                                </tr>
+                                <tr class="total-line total-line--subtotal">
+                                    <th class="total-line__name" scope="row">Subtotal</th>
+                                    <td class="total-line__price"><span class="order-summary__emphasis skeleton-while-loading">₱649.75</span></td>
+                                </tr>
+                                <tr class="total-line total-line--shipping">
+                                    <th class="total-line__name" scope="row"><span>Shipping</span></th>
+                                    <td class="total-line__price"><span class="skeleton-while-loading order-summary__emphasis">₱89.00</span></td>
+                                </tr>
+                                <tr class="total-line total-line--taxes">
+                                    <th class="total-line__name" scope="row">Total payment</th>
+                                    <td class="total-line__price"><span class="order-summary__emphasis skeleton-while-loading text-theme">₱738.75</span></td>
+                                </tr>
+                                <tr class="total-line total-line--taxes">
+                                    <th class="total-line__name" scope="row">Service fee</th>
+                                    <td class="total-line__price"><span class="order-summary__emphasis skeleton-while-loading service-fee">₱0.00</span></td>
+                                </tr>
+                                <tr class="total-line total-line--taxes">
+                                    <th class="total-line__name" scope="row">Commission fee</th>
+                                    <td class="total-line__price"><span class="order-summary__emphasis skeleton-while-loading commission-fee">₱0.00</span></td>
+                                </tr>
+                                <tr class="total-line total-line--taxes">
+                                    <th class="total-line__name" scope="row">Transaction fee (Total buyer payment * 2.24%)</th>
+                                    <td class="total-line__price"><span class="order-summary__emphasis skeleton-while-loading transaction-fee">₱0.00</span></td>
+                                </tr>
+								<tr class="total-line total-line--taxes">
+                                    <th class="total-line__name" scope="row">Online Platform VAT</th>
+                                    <td class="total-line__price"><span class="order-summary__emphasis skeleton-while-loading platform-vat">₱0.00</span></td>
+                                </tr>
+								<tr class="total-line total-line--taxes">
+                                    <th class="total-line__name" scope="row">Shipping VAT</th>
+                                    <td class="total-line__price"><span class="order-summary__emphasis skeleton-while-loading shipping-vat">₱0.00</span></td>
+                                </tr>
+								<tr class="total-line total-line--taxes">
+                                    <th class="total-line__name" scope="row">Item's VAT</th>
+                                    <td class="total-line__price"><span class="order-summary__emphasis skeleton-while-loading item-vat">₱0.00</span></td>
+                                </tr>
+								<tr class="total-line total-line--taxes">
+                                    <th class="total-line__name" scope="row">Withholding Tax(1%)</th>
+                                    <td class="total-line__price"><span class="order-summary__emphasis skeleton-while-loading withholding-tax">₱0.00</span></td>
+                                </tr>
+                                <!-- <tr class="total-line total-line--taxes">
+                                    <th class="total-line__name" scope="row">Online seller's VAT</th>
+                                    <td class="total-line__price"><span class="order-summary__emphasis skeleton-while-loading seller-vat">₱0.00</span></td>
+                                </tr> -->
+                            </tbody>
+                            <tfoot class="total-line-table__footer">
+                                <tr class="total-line">
+                                    <th class="total-line__name payment-due-label" scope="row"><span class="payment-due-label__total">Total Taxes Due</span></th>
+                                    <td class="total-line__price payment-due" data-presentment-currency="PHP"><span class="payment-due__currency remove-while-loading">PHP</span> <span class="payment-due__price skeleton-while-loading--lg text-theme total-fee">₱738.75</span></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<script src="../shopee/js/jquery.min.js">
+	</script>
+	<script src="js/main.js"></script>
+	<script>
+		$('.modal-backdrop').unbind('click').bind('click', function (e) {
+            e.preventDefault();
+
+            $(this).parent().removeClass('show');
+        });
+	</script>
+</body>
+</html>

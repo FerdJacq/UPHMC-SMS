@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>Verify</title>
+
+    <link href="../grab/assets/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+	<link href="./css/main.css" rel="stylesheet">
+</head>
+<body>
+    <div class="d-flex align-items-center justify-content-center main-wrapper">
+        <div class="main-content main-content d-flex align-items-center flex-column justify-content-center">
+            <div class="title-header">
+                <div class="d-flex align-items-center justify-content-center">
+                    <img src="/codefox/img/logo-sm.png" width="50px" height="50px;" />
+                    <!-- <h2 class="m-0">TAX ENGINE</h2> -->
+                    <span class="logo-text m-0" style="font-size: 38px;">Tax Engine</span>
+                </div>
+
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="search" placeholder="Transaction's code" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-primary" type="button" id="btn_search" value=>Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <div class="result-container">
+                    <img src="./icons/failed.svg" alt="Result" />
+                    <img src="./icons/verified.svg" alt="Result" />
+
+                    <div class="result-context">
+                        <h3 class="mt-4 result-title">Verification failed!</h3>
+                        <h6 class="text-muted fw-400 result-body">Transaction cannot find in our database.</h6>
+
+                        <div class="table-responsive tax-details mt-4">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left">Subtotal amount</td>
+                                        <td class="text-right lbl-subtotal">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Delivery fee</td>
+                                        <td class="text-right lbl-delivery-fee">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Voucher</td>
+                                        <td class="text-right lbl-voucher">₱0.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Total Payment</td>
+                                        <td class="text-right text-theme lbl-payment" style="font-weight: 500;">₱259.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Transaction fee</td>
+                                        <td class="text-right lbl-transaction-fee">0</td>
+                                    </tr>
+                                    <tr style="display:none;">
+                                        <td class="text-left">Service fee</td>
+                                        <td class="text-right lbl-service-fee">₱0.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Commission amount</td>
+                                        <td class="text-right lbl-comission-amount">₱1.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-left" style="font-size: 17px; font-weight: 500;">VAT</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Online Platform VAT</td>
+                                        <td class="text-right lbl-platform-vat">₱0.74</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Shipping VAT</td>
+                                        <td class="text-right lbl-shipping-vat">₱7.08</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Item's VAT</td>
+                                        <td class="text-right lbl-item-vat">₱23.26</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Withholding Tax(1%)</td>
+                                        <td class="text-right lbl-withholding-tax">₱0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Total Taxes Due</td>
+                                        <td style="font-size: 22px; font-weight: 500;" class="text-right text-theme  lbl-total-vat">₱31.08</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered blockchain">
+                                <tr>
+                                    <td colspan="2" class="text-left" style="font-size: 17px; font-weight: 500;">
+                                        BLOCKCHAIN
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left" colspan="2">
+                                        Transaction ID
+                                        <span class="lbl-blockchain-trx-id"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left"  colspan="2">
+                                        Block ID
+                                        <span class="lbl-blockchain-block-number"></span>
+                                    </td>
+                                </tr>
+                                <tr class="credentials">
+                                    <td class="text-left" colspan="2">
+                                        <b>Credentials</b>
+                                        <div class="">username: k0ay47lhyi</div>
+                                        <div class="">password: ypw5rfokgj_DuSOz3NNn4CXLaRZ4ai4hQA0oO9Tqbuk</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <button class="btn btn-outline-primary w-100 explorer" type="button" onClick="viewExplorer()">VIEW IN EXPLORER</button>
+                                        <div class="notes">Note: Explorer is only available in desktop.</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="../shopee/js/jquery.min.js"></script>
+<script>
+
+let explorer_link = "";
+$("#btn_search").click(function() {
+  search($("#search").val());
+});
+
+function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+    return false;
+}
+
+function search(search){
+    $(".title-header").removeClass("has-content");
+    $.get(`/api/transaction/verify/${search}`, function(data, status){
+        $(".title-header").addClass("has-content");
+        $(".result-container").removeClass("failed");
+        $(".result-container").removeClass("success");
+        if (data.data){
+            let result = data.data;
+            $(".result-title").html("Verification Success!");
+            $(".result-body").html("Transaction has been found in our database.");
+            $(".result-container").addClass("success");
+            $(".lbl-subtotal").html('₱'+ withComma(result.subtotal_amount));
+            $(".lbl-delivery-fee").html('₱'+ withComma(result.shipping_fee));
+            $(".lbl-voucher").html('₱'+ withComma(result.voucher));
+            $(".lbl-payment").html('₱'+ withComma(result.total_amount));
+            $(".lbl-transaction-fee").html('₱'+ withComma(result.transaction_fee));
+            $(".lbl-service-fee").html('₱'+ withComma(result.service_fee));
+            $(".lbl-comission-amount").html('₱'+ withComma(result.commission_fee));
+            $(".lbl-platform-vat").html('₱'+ withComma(result.online_platform_vat));
+            $(".lbl-shipping-vat").html('₱'+ withComma(result.shipping_vat));
+            $(".lbl-item-vat").html('₱'+ withComma(result.item_vat));
+            $(".lbl-withholding-tax").html('₱'+ withComma(result.withholding_tax));
+            $(".lbl-total-vat").html('₱'+ withComma(result.tax));
+            $(".lbl-blockchain-trx-id").html((result.blockchain_trx_id));
+            $(".lbl-blockchain-block-number").html((result.blockchain_block_number));
+            let blockchain = (result.blockchain_trx_id) ? "revert" : "none";
+            $(".blockchain").css("display",blockchain);
+            explorer_link=result.blockchain_url;
+            
+            console.log(data.data);
+        }
+        else{
+            $(".result-title").html("Verification Failed!");
+            $(".result-body").html("Transaction cannot find in our database.");
+            $(".result-container").addClass("failed");
+        }
+    });
+}
+
+function withComma(e){
+    return e.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function viewExplorer(){
+    window.open(explorer_link, '_blank');
+}
+
+$( document ).ready(function() {
+    let or_number = getUrlParameter("or_number");
+    $("#search").val(or_number);
+    if(or_number){
+        search(or_number);
+    }
+
+});
+</script>

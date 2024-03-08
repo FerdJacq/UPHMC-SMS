@@ -1,0 +1,15 @@
+.large_logo {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .logo .large_logo img {
+    width: auto;
+}
+
+.large_logo span {
+    color: #242934;
+    font-weight: 700;
+    font-size: 18px;
+    margin-left: 10px;
+}
