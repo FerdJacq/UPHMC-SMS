@@ -9,22 +9,22 @@
                         <!-- Brand Logo Light -->
                         <a href="javascript:void(0);" @click="goToPage('/')" class="logo logo-light">
                             <span class="logo-lg">
-                                <img src="/codefox/img/logo-sm.png" alt="small logo">
+                                <img src="/codefox/img/logo.png" alt="small logo">
                                 <span class="logo-text">{{_app_name}}</span>
                             </span>
                             <span class="logo-sm">
-                                <img src="/codefox/img/logo-sm.png" alt="small logo">
+                                <img src="/codefox/img/logo.png" alt="small logo">
                             </span>
                         </a>
 
                         <!-- Brand Logo Dark -->
                         <a href="javascript:void(0);" @click="goToPage('/')" class="logo logo-dark">
                             <span class="logo-lg">
-                                <img src="/codefox/img/logo-sm.png" alt="small logo">
-                                <span class="logo-text">Tax Engine</span>
+                                <img src="/codefox/img/logo.png" alt="small logo">
+                                <span class="logo-text">{{_app_name}}</span>
                             </span>
                             <span class="logo-sm">
-                                <img src="/codefox/img/logo-sm.png" alt="small logo">
+                                <img src="/codefox/img/logo.png" alt="small logo">
                             </span>
                         </a>
 
@@ -87,7 +87,7 @@
                 <a href="javascript:void(0);" @click="goToPage('/')" class="logo logo-light">
                     <span class="logo-lg">
                         <img src="/codefox/img/logo-sm.png" alt="small logo">
-                        <span class="logo-text">Edgecomm</span>
+                        <span class="logo-text">asdz    </span>
                     </span>
                     <span class="logo-sm">
                         <img src="/codefox/img/logo-sm.png" alt="small logo">
@@ -98,7 +98,7 @@
                 <a href="javascript:void(0);" @click="goToPage('/')" class="logo logo-dark">
                     <span class="logo-lg">
                         <img src="/codefox/img/logo-sm.png" alt="small logo">
-                        <span class="logo-text">Edgecomm</span>
+                        <span class="logo-text">asda</span>
                     </span>
                     <span class="logo-sm">
                         <img src="/codefox/img/logo-sm.png" alt="small logo">
@@ -155,7 +155,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
-                                2023 &copy; {{_app_name}} - Edgecomm
+                                2025 &copy; {{_app_name}} - Sixpent Inc
                             </div>
                             <div class="col-md-6">
                                 <div class="text-md-end footer-links d-none d-md-block"></div>

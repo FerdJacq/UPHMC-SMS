@@ -17,50 +17,29 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        
-        $admin = Role::create([
-            'name' => 'ADMIN',
-            'display_name' => 'Administrator', // optional
-            'description' => '', // optional
-        ]);
-            
-        $bir = Role::create([
-            'name' => 'BIR',
-            'display_name' => 'BIR', // optional
-            'description' => '', // optional
-        ]);
+        $roles = [
+            [
+                'name' => 'admin',
+                'display_name' => 'ADMIN',
+                'description' => 'Complete access to system', 
+            ],
+            [
+                'name' => 'sub_admin',
+                'display_name' => 'SUB ADMIN', 
+                'description' => 'Partial access to system',
+            ],
+            [
+                'name' => 'manager',
+                'display_name' => 'MANAGER',
+                'description' => 'Responsible for overseeing a specific department, Duties may include task delegation, planning, performance monitoring, coaching, and decision-making',
+            ],
+            [
+                'name' => 'player',
+                'display_name' => 'PLAYER',
+                'description' => '',
+            ],
+        ];
 
-        $rdo = Role::create([
-            'name' => 'RDO',
-            'display_name' => 'Revenue District Office', // optional
-            'description' => '', // optional
-        ]);
-
-        $dsp = Role::create([
-            'name' => 'DSP',
-            'display_name' => 'Digital Service Provider', // optional
-            'description' => '', // optional
-        ]);
-
-        $dsp = Role::create([
-            'name' => 'SELLER',
-            'display_name' => 'Online Sellers', // optional
-            'description' => '', // optional
-        ]);
-
-        $module_accounts = Permission::create([
-            'name' => 'module-accounts',
-            'display_name' => 'Module Account', // optional
-            'description' => 'Allow module Account', // optional
-        ]);
-
-        $module_service_providers = Permission::create([
-            'name' => 'module-service-providers',
-            'display_name' => 'Module Service Providers', // optional
-            'description' => 'Allow module Service Providers', // optional
-        ]);
-
-        $admin->syncPermissions([$module_accounts, $module_service_providers]);
-
+        Role::insert($roles);
     }
 }

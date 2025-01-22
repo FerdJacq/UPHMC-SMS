@@ -19,10 +19,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RolesTableSeeder::class);
         $this->call(AccountsTableSeeder::class);
-        $this->call(ServiceProvidersTableSeeder::class);
-        $this->call(WhitelistTableSeeder::class);
-        $this->call(RegionsTableSeeder::class);
-        $this->call(SeriesCollectionSeeder::class);
         
     }
 }

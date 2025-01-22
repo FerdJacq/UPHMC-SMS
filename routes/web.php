@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\FileController;
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,5 +17,10 @@ use App\Http\Controllers\AccountController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::middleware(['auth'])->group(function () 
+{
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 require __DIR__.'/auth.php';
