@@ -174,7 +174,6 @@
     </div>
 </template>
 <script>
-import SummaryService  from '../services/summary';
 import Sound from '../components/Sound.vue'
 
 export default {
@@ -357,27 +356,6 @@ export default {
             this.html.setAttribute("data-bs-theme", e);
         },
 
-        getCounts(){
-            SummaryService.counts()
-            .then((response) => {
-                this.counts = response.data.data;
-
-                if(this.counts.editted && this._is_auth_bir){
-                     this.emitter.emit('play_sound',{name:"ting",loop:true});
-                }else{
-                    this.emitter.emit('stop_sound_all');
-                }
-            })
-            .catch((errors) => {
-                try { 
-                    // this.getError(errors);
-                    console.log(errors)
-                }
-                catch(ex){ console.log(ex)}
-            })
-            .finally(() => {});
-        },
-
         isActive(route){
             let curr = window.location.pathname + window.location.search
             return (route == curr) ? true : false;
@@ -397,11 +375,9 @@ export default {
         window.addEventListener('resize', this.getDimensions);
         this.toggleNightMode(localStorage.getItem("night_mode"));
 
-        this.getCounts();
-        this.interval = setInterval(() => {
-            this.getCounts();
-            // this.emitter.emit('stop_sound_all');
-        }, 5000);
+        // this.interval = setInterval(() => {
+        //     // this.emitter.emit('stop_sound_all');
+        // }, 5000);
         // this.emitter.emit('play_sound',{name:"ting",loop:true});
     },
 

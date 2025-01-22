@@ -7,6 +7,9 @@
 node_modules/
 dist/
 
+# Composer artifact files
+vendor/
+
 # Compiled Java class files
 *.class
 
@@ -48,3 +51,6 @@ Thumbs.db
 *.mov
 *.wmv
 
+.env
+
+public/hot

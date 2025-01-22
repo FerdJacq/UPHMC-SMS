@@ -7,7 +7,7 @@
             <div class="auth-logo">
               <Link href="/" class="logo logo-dark text-center">
                 <span class="logo-lg">
-                  <app-logo />
+                  <!-- <app-logo /> -->
                   <!-- <h1>Tax Engine</h1> -->
                 </span>
               </Link>
@@ -56,11 +56,6 @@
       </div>
       <!-- end card -->
 
-      <!-- <div class="row mt-3">
-        <div class="col-12 text-center">
-          <p> <a href="javascript:void(0);" class="text-muted ms-1">Forgot your password?</a></p>
-        </div>
-      </div> -->
     </app-guest>
   </div>
 </template>

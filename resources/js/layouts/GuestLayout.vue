@@ -15,7 +15,7 @@
     
     <!-- end page -->
     <footer class="footer footer-alt">
-      2023 &copy; Tax Engine by&nbsp;<a href="#!" class="text-dark text-decoration-underline">Edgecomm</a>
+      2025 &copy; Wise App by&nbsp;<span href="#!" class="text-dark text-decoration-underline">Sixpent Inc.</span>
     </footer>
   </div>
 </template>
