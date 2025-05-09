@@ -42,7 +42,7 @@
                                         <p-button
                                         class="btn btn-sm btn-warning"
                                         icon="pi pi-pencil"
-                                        @click="viewData(data)"
+                                        @click.prevent="viewData(data)"
                                         />
                                         <p-button
                                         class="btn btn-sm btn-danger"
@@ -80,10 +80,7 @@
                             v-if="table.total > 0"
                             v-model:first="table.first"
                             @page="onPaginate"
-                            :template="{
-                                '640px': 'PrevPageLink CurrentPageReport NextPageLink',
-                                default: 'FirstPageLink PrevPageLink CurrentPageReport PageLinks NextPageLink LastPageLink'
-                            }"
+                            
                             :totalRecords="table.total"
                             :rows="table.params.limit"
                         >
@@ -109,7 +106,7 @@
                 <h3 v-text="dialog.title"></h3>
             </template>
             
-            <AccountForm @success="successEvent" :item="dialog.form" @close="dialog.show = !1" v-if="!dialog.loading"/>
+            <AccountForm @hideModal="successEvent" :item="dialog.form" @close="dialog.show = !1" v-if="!dialog.loading"/>
 
             <div class="skeleton-cont" v-else>
                 <p-skeleton class="mt-5 mb-4" height="1.3rem" borderRadius="16px"></p-skeleton>
@@ -127,9 +124,6 @@
                 </div>
             </div>
         </p-dialog>
-
-        <p-toast />
-        <p-confirm></p-confirm>
     </div>
 </template>
   
@@ -161,6 +155,7 @@
                     params: {
                         search: "",
                         page: 1,
+                        limit : 10
                     },
                 },
 
@@ -176,6 +171,7 @@
                         username: null,
                         password: null,
                         confirm_password: null,
+                        role_name: null,
                         email: null,
                         avatar: null,
                         image: null
@@ -202,12 +198,14 @@
             onPaginate(e) {
                 if(this.table.loading) return;
                 this.table.current_page = e.page + 1;
+                console.log(this.table.current_page);
                 this.getTableData(this.table.current_page);
             },
             
             getTableData(page) {
                 if (this.table.loading) return;
                 this.table.loading = true;
+                this.table.params.page = page;
 
                 AccountService.list(this.table.params)
                 .then((response) => {
@@ -232,11 +230,10 @@
             },
 
             create() {
-                this.dialog.form = this.dialog.form_template;
+                this.dialog.form = JSON.parse(JSON.stringify(this.dialog.form_template));;
                 this.dialog.loading = !1;
                 this.dialog.title = "Create";
                 this.dialog.show = !0;
-                // this.dialog.form.reset();
             },
 
             deleteData(item){
@@ -264,35 +261,32 @@
             },
 
             viewData(item){
-            this.dialog.title = "Update account";
-            this.dialog.data.reset();
-            // this.dialog.data.clearErrors();
+                this.dialog.title = `Modify Record`;
+                this.dialog.form = this.dialog.form_template;
+                // this.dialog.form.reset();
+                this.dialog.loading = !0;
+                this.dialog.show = !0;
 
-            AccountService.get(item.account_number)
-            .then((response) => {
-                let data = response.data.data;
-                this.dialog.data.stepper = 1;
-                this.dialog.data.id = data.account_number; 
-                this.dialog.data.uid = data.user.id;
-                this.dialog.data.first_name = data.first_name;
-                this.dialog.data.middle_name = data.middle_name;
-                this.dialog.data.last_name = data.last_name;
-                this.dialog.data.role = data.user.role_name;
-                this.dialog.data.username = data.user.username;
-                this.dialog.data.email = data.user.email;
-                this.dialog.data.avatar = data.avatar;
-                this.dialog.data.password = null;
-                this.dialog.data.region = data.region.map(e=> e.region_code);
-                this.dialog.data.service_provider = (data.service_provider) ? data.service_provider : [];
-                this.dialog.show = true;
-            })
-            .catch((errors) => {
-                try { 
-                    this.getError(errors);
-                }
-                catch(ex){ console.log(ex)}
-            })
-            .finally(() => {});
+                AccountService.get(item.account_number)
+                .then((response) => {
+                    let data = response.data.data;
+                    let params = {...data};
+                        params.username = data.user.username;
+                        params.role_name = data.user.roles[0].display_name;
+                        params.email = data.user.email;
+
+                    this.dialog.form = new Form(params);
+                    this.dialog.show = true;
+                    this.dialog.loading = false;
+                })
+                .catch((errors) => {
+                    console.log(errors);
+                    try { 
+                        // this.getError(errors);
+                    }
+                    catch(ex){ console.log(ex)}
+                })
+                .finally(() => {});
             },
 
             successEvent() {

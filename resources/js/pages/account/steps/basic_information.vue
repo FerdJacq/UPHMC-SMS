@@ -6,7 +6,7 @@
 
         <div class="field d-flex justify-content-center mb-3">
             <ImageUpload
-                :url="image"
+                :url="data.avatar"
                 @setImage="setImage"
                 :containerWidth=200
                 :containerHeight=150
@@ -19,7 +19,7 @@
                 <p-input-text
                     id="first_name"
                     type="text"
-                    v-model="first_name"
+                    v-model="data.first_name"
                     class="form-control shadow-none"
                     maxlength="50"
                     :class="{ 'p-invalid': errors[0] }"
@@ -34,7 +34,7 @@
                 <p-input-text
                     id="middle_name"
                     type="text"
-                    v-model="middle_name"
+                    v-model="data.middle_name"
                     class="form-control shadow-none"
                     maxlength="50"
                     :class="{ 'p-invalid': errors[0] }"
@@ -49,7 +49,7 @@
                 <p-input-text
                     id="last_name"
                     type="text"
-                    v-model="last_name"
+                    v-model="data.last_name"
                     class="form-control shadow-none"
                     maxlength="50"
                     :class="{ 'p-invalid': errors[0] }"
@@ -70,33 +70,28 @@
 
         data() {
             return {
-                image: '',
-                username: '',
-                password: '',
-                confirm_password: '',
-                first_name: '',
-                middle_name: '',
-                last_name: '',
-                email: '',
-                role: 'DSP'
+                data:{
+                    new_avatar: null,
+                    avatar: null,
+                    first_name: null,
+                    middle_name: null,
+                    last_name: null
+                }
             }
         },
 
         methods: {
             fillInfo() {
-                this.image = this.service.image;
-                this.username = this.service.username;
-                this.password = this.service.password;
-                this.confirm_password = this.service.confirm_password;
-                this.first_name = this.service.first_name;
-                this.middle_name = this.service.middle_name;
-                this.last_name = this.service.last_name;
-                this.email = this.service.email;
-                this.role = this.service.role;
+                Object.entries(this.data).forEach((item) => {
+                    let label = item[0];
+                    this.data[label] = (label.includes('date') && this.service.data[label]) ? this.formatDate(this.parseDate(this.service.data[label])) : this.service.data[label];
+                    
+                });
             },
 
             setImage(base64) {
-                this.image = base64;
+                this.data.image = base64;
+                this.data.new_avatar = base64;
             }
         },
 
@@ -105,40 +100,15 @@
         },
 
         watch: {
-            image() {
-                this.service.image = this.image;
-            },
-
-            username() {
-                this.service.username = this.username;
-            },
-
-            password() {
-                this.service.password = this.password;
-            },
-
-            confirm_password() {
-                this.service.confirm_password = this.confirm_password;
-            },
-
-            first_name() {
-                this.service.first_name = this.first_name;
-            },
-
-            middle_name() {
-                this.service.middle_name = this.middle_name;
-            },
-
-            last_name() {
-                this.service.last_name = this.last_name;
-            },
-
-            email() {
-                this.service.email = this.email;
-            },
-
-            role() {
-                this.service.role = this.role;
+            data: {
+                handler: function () {
+                    Object.entries(this.data).forEach((item) => {
+                        let label = item[0];
+                        this.service.data[label] = label.includes('date') ? this.formatDate(this.parseDate(this.service.data[label])) : this.data[label];
+                    });
+                },
+                deep: true,
+                immediate: false
             }
         }
     }

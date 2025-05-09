@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Log;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 
 class Account extends Model
@@ -28,7 +28,7 @@ class Account extends Model
 
     public function getAvatarAttribute()
     {
-       return "/image/accounts/". $this->account_number;
+        return "/image/accounts/". $this->account_number;
     }
 
     public function delete()

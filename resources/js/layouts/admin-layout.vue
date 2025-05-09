@@ -250,7 +250,18 @@
         </div>
    </div>
 
-   <Sound/>
+   <p-toast />
+	<!-- <p-dynamic-dialog /> -->
+	<p-confirm
+		:draggable="false"
+        :pt="{
+        	header: { class: confirm_dialog_class.header },
+			headerIcons: { class: confirm_dialog_class.header_icon },
+			closeButton: { class: confirm_dialog_class.close_button },
+			closeButtonIcon: { class: confirm_dialog_class.close_icon },
+            root: {  class:'confirm-custom'}
+    	}"
+	></p-confirm>
 </template>
 <script>
 
@@ -299,6 +310,9 @@ export default {
     },
     
     computed: {
+        confirm_dialog_class() {
+			return this.$store.state.confirm_dialog;
+		},
     },
 
     watch: {

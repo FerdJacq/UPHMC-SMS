@@ -14,6 +14,7 @@ import veevalidate from './plugins/vee-validate'
 import custom from './plugins/custom'
 
 import Helper from './helper'
+import Store from './store';
 
 import './plugins/swal'
 import './plugins/vform'
@@ -38,6 +39,7 @@ createInertiaApp({
 
         // app.config.globalProperties.$form = veevalidate.config
 
+        app.use(Store);
         app.use(plugin)
         // app.use(vuetify)
         app.use(toast)

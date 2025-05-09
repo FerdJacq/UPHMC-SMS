@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Models\ServiceProvider;
 use App\Models\Account;
 use App\Models\User;
 
 
 use Illuminate\Support\Facades\Log;
-use Validator;
-use Auth;
-use Helper;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use App\Library\Helper;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class AccountController extends Controller
 {
     //
@@ -24,93 +24,81 @@ class AccountController extends Controller
 
     public function list(Request $request)
     {
-        $data = Account::with(['user'])->when($request->sort_by, function ($query, $value) {
-            $query->orderBy($value, request('order_by', 'asc'));
-        })
-        ->when(!isset($request->sort_by), function ($query) {
-            $query->latest();
-        })
-        ->when($request->search, function ($query, $value) {
-            $query->whereRaw("concat(first_name,' ',last_name) LIKE ?",['%'.$value.'%'])
-            ->orWhere("last_name",'LIKE','%'.$value.'%');
-        })
-        ->paginate($request->page_size ?? 10);
+        $search = $request->search;
+        $column = $request->column;
+        $order = $request->order;
+        $start_date = isset($request->start_date) ? Carbon::parse($request->start_date)->copy()->startOfDay()->toDateTimeString() : null;
+        $end_date = isset($request->end_date) ? Carbon::parse($request->end_date)->copy()->endOfDay()->toDateTimeString() : null;
 
-        return response()->json(["status"=>1,"data"=>$data], 200);
+
+        $data = Account::with(['user'])
+            ->when($search, function ($query, $value) 
+            {
+                $query->whereRaw("concat(first_name,' ',last_name) LIKE ?",['%'.$value.'%'])
+                    ->orWhere("last_name",'LIKE','%'.$value.'%');
+            })
+            ->when($start_date && $end_date, function ($query) use ($start_date, $end_date)
+                {
+                    $query->whereBetween('created_at',[$start_date, $end_date]);
+                })
+            ->when($order && $column, function ($query) use ($column, $order) 
+                {
+                    $query->orderBy($column, $order);
+                }, 
+                    function ($query) 
+                    {
+                        $query->orderBy("id", "desc");
+                    }
+                )
+            ->paginate($request->limit ?? 10);
+
+        return response()->json(["status" => 1,"data" => $data], 200);
     }
 
     public function get($id)
     {
-        $data = Account::with(["user",'serviceProvider.data','region'])->where("account_number",$id)->first();
-        return response()->json(["status"=>"success","data"=>$data], 200);
-    }
+        $data = Account::with(["user"])
+            ->where("account_number",$id)
+            ->first();
 
-    public function store(Request $request)
-    {
-        
-        $service_provider = $request->role=="DSP" ? "required|array|min:1" : "";
-        $region = $request->role=="RDO" ? "required|array|min:1" : "";
-        $data = $this->validate($request, [
-            'email' => 'required|email|unique:users,email',
-            'username' => 'required|alpha_dash|unique:users,username',
-            'password' => 'required|alpha_dash|same:confirm_password',
-            'service_provider' => $service_provider,
-            'region' => $region
-        ]);
-
-        $user = User::create([
-            "username"=>$request->username,
-            "email"=>$request->email,
-            "password"=>bcrypt($request->password)
-        ]);
-
-        $account_number = $ref = Helper::ref_number("A",20);
-        $account = Account::create([
-            "user_id"=>$user->id,
-            "account_number"=>$account_number,
-            "first_name"=>$request->first_name,
-            "middle_name"=>$request->middle_name,
-            "last_name"=>$request->last_name
-        ]);
-
-        if($request->role=="DSP")
-        {
-            $service_provider = collect($data["service_provider"])->map(function ($dsp) {
-                return ["service_provider_id"=>$dsp['service_provider_id']];
-            });
-            $account->serviceProvider()->createMany($service_provider);
-        }
-        
-        $user->attachRole($request->role);
-
-        if ($request->image)
-            FileController::saveImage($account->account_number,"accounts",$request->image);
-
-        return response()->json(['success' => 1,"message"=>"Success!"]);
+        return response()->json(["status"=>"success", "data"=>$data], 200);
     }
 
     public function validateRequest(Request $request)
     {
-        $password = $request->password ? 'alpha_dash|' : '';
-        $service_provider = "";
-        if (!$request->id){
-            $password = "required|";
+        $rules = [];
+        $password = ["nullable|"];
+        $user_id = $request->user_id;
+    
+        if (!$user_id)
+        {
+            $password = [ "required", "alpha_dash", "same:confirm_password"];
         }
 
-        if ($request->step_no==2){
-            $service_provider = $request->role=="DSP" ? "required|array|min:1" : "";
+        switch ($request->step_no) {
+            case 0:
+                $rules = [
+                    'role_name' => ['required', 'string'],
+                    'email' => ['required', 'email', "unique:users,email,$user_id"],
+                    'username' => ['required', 'string', 'alpha_dash', "unique:users,username,$user_id"],
+                    'password' => $password,
+                ];
+                break;
+        
+            case 1:
+                $rules = [
+                    'first_name' => ['required', 'string'],
+                    'last_name' => ['required', 'string'],
+                    'middle_name' => ['nullable', 'string'],
+                ];
+                break;
+        
+            default:
+                $rules = [];
+                break;
         }
 
-        $region = $request->role=="RDO" ? "required|array|min:1" : "";
-
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email|unique:users,email,' . $request->uid,
-            'username' => 'required|alpha_dash|unique:users,username,' . $request->uid,
-            'step_no'=>'required',
-            'password' => $password.'same:confirm_password',
-            'service_provider' => $service_provider,
-            'region' => $region
-        ]);
+        $validator = Validator::make($request->all(), $rules);
 
         if($validator->fails()) 
         {
@@ -120,90 +108,66 @@ class AccountController extends Controller
 
         return response()->json(['success' => 1,"message"=>"Success!"]);
     }
+    public function create(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'role_name' => ['required', 'string'],
+            'email' => ['required', 'email', "unique:users,email"],
+            'username' => ['required', 'string', 'alpha_dash', "unique:users,username"],
+            'password' => [ "required", "alpha_dash", "same:confirm_password"],
+            'first_name' => ['required', 'string'],
+            'last_name' => ['required', 'string'],
+            'middle_name' => ['nullable', 'string'],
+        ]);
 
+        if($validator->fails()) 
+        {
+            $log = ['success' => 0, 'errors' => $validator->getMessageBag()->toArray()];
+            return response()->json($log, 400);
+        }
+
+        try 
+        {
+            return DB::transaction(function () use ($request)
+            {
+                $user = User::create([
+                    "username"=>$request->username,
+                    "email"=>$request->email,
+                    "password"=>bcrypt($request->password)
+                ]);
+        
+                $account_number = $ref = Helper::ref_number("A",20);
+                $account = Account::create([
+                    "user_id"=>$user->id,
+                    "account_number"=>$account_number,
+                    "first_name"=>$request->first_name,
+                    "middle_name"=>$request->middle_name,
+                    "last_name"=>$request->last_name
+                ]);
+                
+                $user->addRole($request->role_name);
+        
+                if ($request->new_avatar) FileController::saveImage($account->account_number,"accounts",$request->new_avatar);
+        
+                return response()->json(['success' => 1,"message"=>"Success!"]);
+            });
+        } 
+        catch(\Exception $e) 
+        {
+            return response()->json(['status' => 0, 'message' => $e->getMessage()], 400);
+        }
+    }
     public function update($id,Request $request)
     {
-        $password = $request->password ? 'alpha_dash|' : '';
-        $service_provider = $request->role=="DSP" ? "required|array|min:1" : "";
-        $region = $request->role=="RDO" ? "required|array|min:1" : "";
-        $data = $this->validate($request, [
-            'email' => 'required|email|unique:users,email,' . $request->uid,
-            'username' => 'required|alpha_dash|unique:users,username,' . $request->uid,
-            'password' => $password.'same:confirm_password',
-            'service_provider' => $service_provider,
-            "region"=>$region
-        ]);
-
-        $item = Account::with(["user","serviceProvider"])->where("account_number",$id)->first();
-        $item->update([
-            "first_name"=>$request->first_name,
-            "middle_name"=>$request->middle_name,
-            "last_name"=>$request->last_name
-        ]);
-        
-        if($request->role=="DSP")
-        {
-            $service_provider = collect($data["service_provider"])->map(function ($dsp) {
-                return ["service_provider_id"=>$dsp['service_provider_id']];
-            });
-            $item->serviceProvider()->delete();
-            $item->serviceProvider()->createMany($service_provider);
-        }
-
-        if($request->role=="RDO")
-        {
-            $region = collect($data["region"])->map(function ($region_code) {
-                return ["region_code"=>$region_code];
-            });
-
-            Log::info($region);
-            $item->region()->delete();
-            $item->region()->createMany($region);
-        }
-
-        if ($request->password)
-        {
-            $item->user->update([
-                "email"=>$request->email,
-                "username"=>$request->username,
-                "password"=>bcrypt($request->password),
-            ]);
-        }
-        else
-        {
-            $item->user->update([
-                "email"=>$request->email,
-                "username"=>$request->username,
-            ]);
-        }
-        $item->user->detachRole($item->user->role_name); 
-        $item->user->attachRole($request->role);
-        
-        if ($request->image)
-            FileController::saveImage($item->account_number,"accounts",$request->image);
-
-        return response()->json(['success' => 1,"message"=>"Success!"]);
-    }
-
-    public function destroy(Request $request)
-    {
-        $item = Account::where("account_number",$request->id)->delete();
-        return response()->json(['success' => 1,"message"=>"Success!"]);
-    }
-
-    public function profile()
-    {
-        return Inertia::render('account/profile');
-    }
-
-    public function updateProfile(Request $request){
-        $password = $request->password ? 'alpha_dash|' : '';
-        $user = Auth::user();
+        $user_id = $request->user_id;
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'username' => 'required|alpha_dash|unique:users,username,' . $user->id,
-            'password' => $password.'same:confirm_password',
-            'confirm_password' => $password.'same:password',
+            'id' => ['required', "exists:accounts,id"],
+            'role_name' => ['required', 'string'],
+            'email' => ['required', 'email', "unique:users,email,$user_id"],
+            'username' => ['required', 'string', 'alpha_dash', "unique:users,username,$user_id"],
+            'first_name' => ['required', 'string'],
+            'last_name' => ['required', 'string'],
+            'middle_name' => ['nullable', 'string'],
         ]);
 
         if($validator->fails()) 
@@ -212,19 +176,38 @@ class AccountController extends Controller
             return response()->json($log, 400);
         }
 
-        $user->email = $request->email;
-        $user->username = $request->username;
-        if ($request->password) $user->password = bcrypt($request->password);
-        $user->save();
-        $user->account()->update([
-            'first_name'=>$request->first_name,
-            'middle_name'=>$request->middle_name,
-            'last_name'=>$request->last_name,
+        $account = Account::where("id",$id)
+            ->first();
+
+        $account->update([
+            "first_name" => $request->first_name,
+            "middle_name" => $request->middle_name,
+            "last_name" => $request->last_name
         ]);
 
-        if ($request->image)
-            FileController::saveImage($user->account->account_number,"accounts",$request->image);
+        $user = User::where("id",$account->user_id)
+            ->first();
 
-        return response()->json(['success' => 1,'data',"message"=>"Success!"]);
+        if($user)
+        {
+            $user->update([
+                "email"=>$request->email,
+                "username"=>$request->username,
+            ]);
+        
+            $user->removeRole($user->role_name); 
+            $user->addRole($request->role_name);
+        }
+        
+        if ($request->new_avatar) FileController::saveImage($account->account_number,"accounts",$request->new_avatar);
+
+        return response()->json(['success' => 1,"message"=>"Success!"]);
+    }
+    public function destroy($account_number, Request $request)
+    {
+        $item = Account::where("account_number",$account_number)
+            ->delete();
+
+        return response()->json(['success' => 1,"message"=>"Success!"]);
     }
 }

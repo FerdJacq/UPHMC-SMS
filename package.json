@@ -57,6 +57,7 @@
         "vue-toastification": "^2.0.0-rc.5",
         "vue3-apexcharts": "^1.5.2",
         "vue3-autocounter": "^1.0.6",
-        "vue3-count-to": "^1.1.2"
+        "vue3-count-to": "^1.1.2",
+        "vuex": "^4.1.0"
     }
 }

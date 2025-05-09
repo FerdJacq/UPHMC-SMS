@@ -37,23 +37,11 @@
         data() {
             return {
                 context: new Form({
-                    loading:false,
+                    loading: !1,
                     id: !this.item ? 0 : this.item.id,
                     step_no: 0,
-                    disable_btn: !1, /* Set to (true) For manual disable next/done button */
-                    
-                    /* Context */
-                    uid: !this.item ? '' : this.item.uid,
-                    image: !this.item ? '' : this.item.avatar,
-                    username: !this.item ? '' : this.item.username,
-                    password: !this.item ? '' : this.item.password,
-                    first_name: !this.item ? '' : this.item.first_name,
-                    middle_name: !this.item ? '' : this.item.middle_name,
-                    last_name: !this.item ? '' : this.item.last_name,
-                    email: !this.item ? '' : this.item.email,
-                    role: !this.item ? '' : this.item.role,
-                    service_provider : !this.item ? [] : this.item.service_provider,
-                    region:  !this.item ? [] : this.item.region,
+                    disable_btn: !0,
+                    data : this.item,
                 }),
                 states: [
                     {
@@ -77,7 +65,7 @@
             onNext() {
                 if (this.context.loading) return;
                 this.context.loading = true;
-                AccountService.validate(this.context)
+                AccountService.validate(this.context.data)
                 .then((response) => {
                     this.context.step_no++;
                 })
@@ -106,8 +94,7 @@
                 //     return;
                 // }
                 
-                (ctx.id) ? this.updateData(ctx, ctx.id) : this.createData(ctx);
-                console.log(ctx);
+                (ctx.data.id) ? this.updateData(ctx.data, ctx.data.id) : this.createData(ctx.data);
             },
 
             createData(data) {

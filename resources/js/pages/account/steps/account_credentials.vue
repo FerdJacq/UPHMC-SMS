@@ -3,7 +3,7 @@
         <div class="field">
             <label for="role">Role</label>
             <p-dropdown
-                v-model="role"
+                v-model="data.role_name"
                 inputId="role"
                 :options='["ADMIN"]'
                 inputClass="w-full"
@@ -15,7 +15,7 @@
             <p-input-text
                 id="email"
                 type="text"
-                v-model="email"
+                v-model="data.email"
                 class="form-control shadow-none"
                 maxlength="50"
                 :class="{ 'p-invalid': errors[0] }"
@@ -28,7 +28,7 @@
             <p-input-text
                 id="username"
                 type="text"
-                v-model="username"
+                v-model="data.username"
                 class="form-control shadow-none"
                 maxlength="50"
                 :class="{ 'p-invalid': errors[0] }"
@@ -36,11 +36,11 @@
             <small class="p-error">{{ errors[0] }}</small>
         </v-field>
         
-        <v-field as="div" class="field" name="password" v-slot="{ errors }">
+        <v-field as="div" class="field" name="password" v-slot="{ errors }" v-if="!service.id">
             <label for="password">Password</label> 
             <p-input-password
                 id="password"
-                v-model="password"
+                v-model="data.password"
                 toggleMask
                 :feedback=false
                 :class="{ 'p-invalid': errors[0] }"
@@ -52,11 +52,11 @@
             <small class="p-error">{{ errors[0] }}</small>
         </v-field>
 
-        <v-field as="div" class="field" name="confirm_password" v-slot="{ errors }" v-if="password">
+        <v-field as="div" class="field" name="confirm_password" v-slot="{ errors }" v-if="data.password">
             <label for="confirm_password">Confirm Password</label>
             <p-input-password
                 id="confirm_password"
-                v-model="confirm_password"
+                v-model="data.confirm_password"
                 toggleMask
                 :feedback=false
                 maxlength="50"
@@ -77,33 +77,24 @@
 
         data() {
             return {
-                image: '',
-                username: '',
-                password: '',
-                confirm_password: '',
-                first_name: '',
-                middle_name: '',
-                last_name: '',
-                email: '',
-                role: 'DSP',
-                region:[],
-                region_list:[],
-                selected_regions:[]
+                data:{
+                    username: null,
+                    password: null,
+                    confirm_password: null,
+                    email: null,
+                    role_name: null
+                }
             }
         },
 
         methods: {
             fillInfo() {
-                this.image = this.service.image;
-                this.username = this.service.username;
-                this.password = this.service.password;
-                this.confirm_password = this.service.confirm_password;
-                this.first_name = this.service.first_name;
-                this.middle_name = this.service.middle_name;
-                this.last_name = this.service.last_name;
-                this.email = this.service.email;
-                this.role = this.service.role;
-                this.region = this.service.region;
+                Object.entries(this.data).forEach((item) => {
+                    let label = item[0];
+
+                    this.data[label] = (label.includes('date') && this.service.data[label]) ? this.formatDate(this.parseDate(this.service.data[label])) : this.service.data[label];
+                    
+                });
             },
 
             setImage(base64) {
@@ -116,44 +107,16 @@
         },
 
         watch: {
-            image() {
-                this.service.image = this.image;
-            },
-
-            region(){
-                this.service.region = this.region;
-            },
-
-            username() {
-                this.service.username = this.username;
-            },
-
-            password() {
-                this.service.password = this.password;
-            },
-
-            confirm_password() {
-                this.service.confirm_password = this.confirm_password;
-            },
-
-            first_name() {
-                this.service.first_name = this.first_name;
-            },
-
-            middle_name() {
-                this.service.middle_name = this.middle_name;
-            },
-
-            last_name() {
-                this.service.last_name = this.last_name;
-            },
-
-            email() {
-                this.service.email = this.email;
-            },
-
-            role() {
-                this.service.role = this.role;
+            data: {
+                handler: function () {
+                    Object.entries(this.data).forEach((item) => {
+                        let label = item[0];
+                        
+                        this.service.data[label] = label.includes('date') ? this.formatDate(this.parseDate(this.service.data[label])) : this.data[label];
+                    });
+                },
+                deep: true,
+                immediate: false
             }
         }
     }

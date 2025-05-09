@@ -17,6 +17,7 @@ use App\Http\Controllers\DashboardController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/image/{table}/{name}', [FileController::class, 'viewImage']);
 
 Route::middleware(['auth'])->group(function () 
 {
@@ -27,9 +28,9 @@ Route::middleware(['auth'])->group(function ()
         Route::get('all', [AccountController::class, 'list'])->name('account.list');
         Route::post('create', [AccountController::class, 'create'])->name('account.create');
         Route::post('validate', [AccountController::class, 'validateRequest'])->name('account.validate');
-        Route::post('data/{id}', [AccountController::class, 'get'])->name('account.get');
+        Route::get('data/{id}', [AccountController::class, 'get'])->name('account.get');
         Route::post('update/{id}', [AccountController::class, 'update'])->name('account.update');
-        Route::post('delete', [AccountController::class, 'destroy'])->name('account.destroy');
+        Route::post('delete/{account_number}', [AccountController::class, 'destroy'])->name('account.destroy');
         Route::post('mass-remove', [AccountController::class, 'massRemove'])->name('account.mass_remove');
     });
 });

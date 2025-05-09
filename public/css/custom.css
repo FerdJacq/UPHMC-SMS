@@ -379,6 +379,11 @@
     border-color: #007bff;
 }
 
+.p-paginator-page.p-paginator-page-selected {
+    background: #29327f !important;
+    color: #fff !important;
+}
+
 .pi {
     font-size: 1rem !important;
 }
@@ -524,6 +529,15 @@
 .p-dialog-header .p-dialog-close-button:hover::before,
 .p-dialog-header .p-dialog-close-button:hover::after {
     background-color: #666; /* Slightly lighter gray on hover */
+}
+
+.p-confirmdialog .p-dialog-content {
+    gap: 0.5rem !important;
+}
+
+.p-dialog-footer {
+    padding: 0 1.25rem 1.25rem 1.25rem !important;
+    gap: 0.5rem !important;
 }
 
 .p-skeleton {
