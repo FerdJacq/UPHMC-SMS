@@ -244,9 +244,23 @@ class ModemDriver implements SmsGatewayInterface
 
     /**
      * Normalize web textarea newlines into modem-friendly SMS line breaks.
+     * Also preserve user-entered spacing as much as possible by converting
+     * leading/repeated spaces into non-breaking spaces.
      */
     private function normalizeSmsBody(string $message): string
     {
-        return preg_replace("/\r\n|\r|\n/", "\r\n", $message) ?? $message;
+        $normalizedNewlines = preg_replace("/\r\n|\r|\n/", "\r\n", $message) ?? $message;
+
+        return collect(explode("\r\n", $normalizedNewlines))
+            ->map(function (string $line) {
+                $line = preg_replace_callback('/^ +/u', function ($matches) {
+                    return str_repeat("\u{00A0}", strlen($matches[0]));
+                }, $line) ?? $line;
+
+                return preg_replace_callback('/ {2,}/u', function ($matches) {
+                    return str_repeat("\u{00A0}", strlen($matches[0]));
+                }, $line) ?? $line;
+            })
+            ->implode("\r\n");
     }
 }
