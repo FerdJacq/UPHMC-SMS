@@ -10,11 +10,15 @@ class SmsGatewaySeeder extends Seeder
 {
     public function run(): void
     {
-        $defaultPort = match (PHP_OS_FAMILY) {
+        $fallbackPort = match (PHP_OS_FAMILY) {
             'Windows' => 'COM3',
             'Darwin'  => '/dev/cu.usbserial-0001',
             default   => '/dev/ttyUSB0',
         };
+
+        $defaultPort = env('SMS_MODEM_PORT', $fallbackPort);
+        $baudRate = (int) env('SMS_MODEM_BAUD_RATE', 115200);
+        $timeout = (int) env('SMS_MODEM_TIMEOUT', 10);
 
         SmsGateway::firstOrCreate(
             ['name' => 'Itegno W3800U'],
@@ -24,8 +28,8 @@ class SmsGatewaySeeder extends Seeder
                 'priority'  => 1,
                 'config'    => [
                     'port'           => $defaultPort,
-                    'baud_rate'      => 115200,
-                    'timeout'        => 10,
+                    'baud_rate'      => $baudRate,
+                    'timeout'        => $timeout,
                     'max_sms_length' => 160,
                 ],
             ]
