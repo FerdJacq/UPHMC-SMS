@@ -20,6 +20,7 @@ Install dependencies:
 """
 
 import argparse
+import base64
 import sys
 import time
 
@@ -113,13 +114,25 @@ def main() -> None:
     parser.add_argument("--port",    required=True,               help="Serial port e.g. COM3 or /dev/ttyUSB0")
     parser.add_argument("--baud",    required=False, default=115200, type=int, help="Baud rate (default: 115200)")
     parser.add_argument("--to",      required=True,               help="Recipient phone number e.g. 09171234567")
-    parser.add_argument("--message", required=True,               help="SMS message body (max 160 chars)")
+    parser.add_argument("--message", required=False,              help="SMS message body (max 160 chars)")
+    parser.add_argument("--message-b64", required=False,          help="Base64-encoded SMS message body")
     parser.add_argument("--timeout", required=False, default=10,  type=int, help="AT command timeout in seconds")
     parser.add_argument("--max-len", required=False, default=160, type=int, help="Max SMS length (default: 160)")
 
     args = parser.parse_args()
 
-    body = args.message[: args.max_len]
+    if args.message_b64:
+        try:
+            decoded = base64.b64decode(args.message_b64)
+            body = decoded.decode("utf-8")[: args.max_len]
+        except Exception as exc:
+            print(f"ERROR: Invalid base64 message body: {exc}", file=sys.stderr)
+            sys.exit(2)
+    elif args.message is not None:
+        body = args.message[: args.max_len]
+    else:
+        print("ERROR: Either --message or --message-b64 is required.", file=sys.stderr)
+        sys.exit(2)
 
     try:
         ser = serial.Serial(

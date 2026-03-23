@@ -112,14 +112,15 @@ class ModemDriver implements SmsGatewayInterface
         $timeout = (int) ($this->config['timeout']         ?? 10);
         $maxLen  = (int) ($this->config['max_sms_length']  ?? 160);
         $body    = mb_substr($message, 0, $maxLen);
+        $bodyB64 = base64_encode($body);
 
         $cmd = sprintf(
-            'python %s --port %s --baud %d --to %s --message %s --timeout %d --max-len %d 2>&1',
+            'python %s --port %s --baud %d --to %s --message-b64 %s --timeout %d --max-len %d 2>&1',
             escapeshellarg($script),
             escapeshellarg($port),
             $baud,
             escapeshellarg($to),
-            escapeshellarg($body),
+            escapeshellarg($bodyB64),
             $timeout,
             $maxLen
         );
