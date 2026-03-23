@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Library\Helper;
+use Illuminate\Database\Eloquent\Builder;
 
 class SmsController extends Controller
 {
@@ -31,7 +32,8 @@ class SmsController extends Controller
     public function list(Request $request): JsonResponse
     {
         $search = $request->input('search', null);
-        $data = SmsMessage::with(['sender', 'recipients', 'recipients.contact'])
+
+        $data = $this->visibleSmsMessagesQuery()
             ->when($search, function ($query, $search) 
             {
                 $query->where('message_body', 'like', "%$search%");
@@ -44,10 +46,29 @@ class SmsController extends Controller
 
     public function get($id): JsonResponse
     {
-        $data = SmsMessage::with(['sender', 'recipients', 'recipients.contact'])
+        $data = $this->visibleSmsMessagesQuery()
             ->findOrFail($id);
 
         return response()->json(["status" => 1, "data" => $data], 200);
+    }
+
+    protected function visibleSmsMessagesQuery(): Builder
+    {
+        $user = Auth::user();
+        $isAdmin = strtoupper((string) $user?->role_name) === 'ADMIN';
+        $departmentId = $user?->account?->department_id;
+
+        return SmsMessage::with(['sender', 'recipients', 'recipients.contact'])
+            ->when(! $isAdmin, function (Builder $query) use ($departmentId) {
+                $query->whereHas('sender.account', function (Builder $accountQuery) use ($departmentId) {
+                    if ($departmentId) {
+                        $accountQuery->where('department_id', $departmentId);
+                        return;
+                    }
+
+                    $accountQuery->whereNull('department_id');
+                });
+            });
     }
 
     public function validateRequest(Request $request)
