@@ -54,6 +54,7 @@
                         rows="4"
                         maxlength="160"
                         placeholder="Type your message here..."
+                        style="white-space: pre-wrap;"
                         class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                         :class="{ 'border-red-400': errors.body }"
                     />
@@ -199,7 +200,7 @@ export default {
         canSubmit() {
             return (
                 this.form.recipients.length > 0 &&
-                this.form.body.trim().length > 0 &&
+                this.form.body.length > 0 &&
                 (this.form.send_type === 'immediate' || this.form.scheduled_at !== '')
             )
         },
@@ -230,7 +231,7 @@ export default {
                 return
             }
 
-            if (this.form.body.trim().length === 0) {
+            if (this.form.body.length === 0) {
                 this.errors.body = 'Message body is required.'
                 return
             }

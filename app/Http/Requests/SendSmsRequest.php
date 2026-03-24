@@ -47,4 +47,15 @@ class SendSmsRequest extends FormRequest
             'scheduled_at.after'         => 'Scheduled time must be in the future.',
         ];
     }
+
+    /**
+     * Override to prevent implicit trimming of the SMS body.
+     * Whitespace, indentation, and newlines must be preserved
+     * exactly as submitted by the user.
+     */
+    protected function prepareForValidation(): void
+    {
+        // Intentionally left empty — do NOT call trim() on body.
+        // Laravel's TrimStrings middleware is already excluded for 'body'.
+    }
 }

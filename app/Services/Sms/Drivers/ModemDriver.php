@@ -191,11 +191,11 @@ class ModemDriver implements SmsGatewayInterface
             $runner->send('AT+CMGF=1', 'OK');
             $runner->send('AT+CSCS="GSM"', 'OK');
 
-            $body = mb_substr(
-                $this->normalizeSmsBody($message),
-                0,
-                (int) ($this->config['max_sms_length'] ?? 160)
-            );
+            $body = mb_substr($message, 0, (int) ($this->config['max_sms_length'] ?? 160));
+
+            // Normalize line endings to \r\n for GSM modem (3GPP TS 27.005).
+            // This preserves newlines, indentation, and spacing as the user typed.
+            $body = str_replace(["\r\n", "\r", "\n"], "\r\n", $body);
             $runner->send('AT+CMGS="' . $to . '"', '>');
 
             $response = $runner->sendRaw($body . chr(26));
@@ -243,25 +243,11 @@ class ModemDriver implements SmsGatewayInterface
     }
 
     /**
-     * Normalize web textarea newlines into modem-friendly SMS line breaks.
-     * Also preserve user-entered spacing as much as possible by converting
-     * leading/repeated spaces into non-breaking spaces.
+     * Preserve the SMS body exactly as entered except for GSM-friendly CRLF newlines.
      */
     private function normalizeSmsBody(string $message): string
     {
-        $normalizedNewlines = preg_replace("/\r\n|\r|\n/", "\r\n", $message) ?? $message;
-
-        return collect(explode("\r\n", $normalizedNewlines))
-            ->map(function (string $line) {
-                $line = preg_replace_callback('/^ +/u', function ($matches) {
-                    return str_repeat("\u{00A0}", strlen($matches[0]));
-                }, $line) ?? $line;
-
-                return preg_replace_callback('/ {2,}/u', function ($matches) {
-                    return str_repeat("\u{00A0}", strlen($matches[0]));
-                }, $line) ?? $line;
-            })
-            ->implode("\r\n");
+        return str_replace(["\r\n", "\r", "\n"], "\r\n", $message);
     }
 
 }
