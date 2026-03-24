@@ -40,14 +40,15 @@
 
         <v-field as="div" class="field" slim rules="required" name="body" v-slot="{ errors }">
             <p-float-label variant="on">
-                <p-textarea 
+                <textarea
                     v-model="data.body" 
                     rows="4" 
                     cols="30" 
                     maxlength="160"
-                    style="resize: none" 
-                    class="form-control shadow-none"
+                    style="resize: none; white-space: pre-wrap; font-family: inherit;"
+                    class="p-inputtextarea p-inputtext p-component form-control shadow-none"
                     :class="{ 'p-invalid': errors[0] }"
+                    @keydown.tab.prevent="insertTab"
                 />
                 <label for="Message">Compose Message</label>
             </p-float-label>
@@ -75,7 +76,7 @@
                     recipients: [],
                     groups: [],
                     scheduled: false,
-                    body: null,
+                    body: '',
                     send_type: 'immediate',
                     scheduled_at: null,
                 }
@@ -83,6 +84,23 @@
         },
 
         methods: {
+            /**
+             * Allow Tab key to insert spaces instead of moving focus.
+             * This lets users indent their SMS message as expected.
+             */
+            insertTab(event) {
+                const el = event.target;
+                const start = el.selectionStart;
+                const end = el.selectionEnd;
+                const spaces = '    ';
+                this.data.body = (this.data.body || '').substring(0, start)
+                    + spaces
+                    + (this.data.body || '').substring(end);
+                this.$nextTick(() => {
+                    el.selectionStart = el.selectionEnd = start + spaces.length;
+                });
+            },
+
             fillInfo() {
                 Object.keys(this.data).forEach((label) => {
                     if (label === 'scheduled_at') {
@@ -101,7 +119,10 @@
 
         computed: {
             characterCount() {
-                return (this.data.body || '').length;
+                const body = this.data.body || '';
+                const newlineCount = (body.match(/\n/g) || []).length;
+
+                return body.length + newlineCount;
             },
         },
 
