@@ -39,19 +39,17 @@
         
 
         <v-field as="div" class="field" slim rules="required" name="body" v-slot="{ errors }">
-            <p-float-label variant="on">
-                <textarea
-                    v-model="data.body" 
-                    rows="4" 
-                    cols="30" 
-                    maxlength="160"
-                    style="resize: none; white-space: pre-wrap; font-family: inherit;"
-                    class="p-inputtextarea p-inputtext p-component form-control shadow-none"
-                    :class="{ 'p-invalid': errors[0] }"
-                    @keydown.tab.prevent="insertTab"
-                />
-                <label for="Message">Compose Message</label>
-            </p-float-label>
+            <label for="Message">Compose Message</label>
+            <textarea
+                v-model="data.body" 
+                rows="4" 
+                cols="30" 
+                maxlength="160"
+                style="resize: none; white-space: pre-wrap; font-family: inherit;"
+                class="p-inputtextarea p-inputtext p-component form-control shadow-none"
+                :class="{ 'p-invalid': errors[0] }"
+                @keydown.tab.prevent="insertTab"
+            />
             <div class="d-flex justify-content-between align-items-center mt-1">
                 <small class="text-muted">
                     Spaces and line breaks are counted as part of the message.
