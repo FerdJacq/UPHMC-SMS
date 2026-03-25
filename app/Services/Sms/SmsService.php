@@ -3,6 +3,7 @@
 namespace App\Services\Sms;
 
 use App\Enums\SmsStatus;
+use App\Jobs\CleanSmsInboxJob;
 use App\Jobs\SendSmsJob;
 use App\Models\Contact;
 use App\Models\ContactGroup;
@@ -42,7 +43,7 @@ class SmsService
         ?int $apiClientId = null,
         string $source = 'web'
     ): SmsMessage {
-        return DB::transaction(function () use ($body, $recipients, $senderId, $gatewayId, $apiClientId, $source) {
+        $message = DB::transaction(function () use ($body, $recipients, $senderId, $gatewayId, $apiClientId, $source) {
             $message = $this->createMessage($body, $senderId, $gatewayId, count($recipients), null, SmsStatus::PROCESSING, $apiClientId, $source);
             $this->createRecipientsAndDispatchJobs($message, $recipients, now(), $senderId, $apiClientId, $source);
 
@@ -55,6 +56,10 @@ class SmsService
 
             return $message;
         });
+
+        $this->dispatchInboxCleanup();
+
+        return $message;
     }
 
     /**
@@ -101,7 +106,7 @@ class SmsService
             ->distinct()
             ->get();
 
-        return DB::transaction(function () use ($body, $contacts, $senderId, $gatewayId) {
+        $message = DB::transaction(function () use ($body, $contacts, $senderId, $gatewayId) {
             $message = $this->createMessage($body, $senderId, $gatewayId, $contacts->count());
 
             foreach ($contacts as $contact) {
@@ -118,6 +123,10 @@ class SmsService
 
             return $message;
         });
+
+        $this->dispatchInboxCleanup();
+
+        return $message;
     }
 
     /**
@@ -249,6 +258,11 @@ class SmsService
                 $job->delay($dispatchAt);
             }
         }
+    }
+
+    private function dispatchInboxCleanup(): void
+    {
+        CleanSmsInboxJob::dispatch()->onQueue('sms');
     }
 
     private function planRecipientDispatches(
